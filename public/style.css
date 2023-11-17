@@ -1,0 +1,82 @@
+.nav-item .nav-link {
+  color: rgb(255, 255, 255);
+}
+
+.nav-item .nav-link:hover {
+  color: rgb(204, 204, 204);
+}
+
+.james {
+  height: 100vh;
+  background-image: url("./images/james.bg.jpg");
+  background-size: cover;
+  background-position: 60% 0%;
+  background-attachment: fixed;
+}
+
+#skills i {
+  height: 100px;
+  width: 100px;
+}
+
+#portfolio img {
+  height: 300px;
+}
+
+#about img,
+#about .next-hire h2 {
+  width: 140px;
+}
+
+#about .next-hire h2 {
+  height: 140px;
+}
+
+#about .img,
+#about img,
+.next-hire h2 {
+  position: relative;
+}
+
+#about .img::before {
+  content: "";
+  position: absolute;
+  background: rgb(226, 224, 224);
+  width: 4px;
+  left: 50%;
+  height: calc(100% + 98px);
+}
+
+#cv img {
+  width: 230px;
+}
+
+.social-icons a {
+  width: 40px;
+  height: 40px;
+}
+
+#contact {
+  background-image: url("./images/contact.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+footer .social-icons a {
+  width: 30px;
+  height: 30px;
+}
+
+@media screen and (max-width: 990px) {
+  #skills .card {
+    width: calc(100% / 2 - 10px) !important;
+  }
+}
+
+@media screen and (max-width: 668px) {
+  #skills .card,
+  #portfolio .card-wrapper {
+    width: 100% !important;
+  }
+}
