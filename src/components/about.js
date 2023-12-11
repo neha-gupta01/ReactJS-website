@@ -79,6 +79,7 @@ const About = () => {
 
       {aboutData.map((about, index) => (
         <SingleAbout
+        key={index}
           year={about.year}
           title={about.title}
           description={about.description}

@@ -47,8 +47,9 @@ const Skills = () => {
     <section className="container py-5" id="skills">
       {title}
       <div className="row d-flex justify-content-between mx-0">
-        {skillsData.map((skill) => (
+        {skillsData.map((skill, index) => (
           <SingleSkill
+          key={index}
             icon={skill.icon}
             skill={skill.skill}
             description={skill.description}
