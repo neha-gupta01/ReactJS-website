@@ -124,7 +124,7 @@ const SinglePortfolio = ({ id, imageSrc, title, description, price, onAddToCart 
     onAddToCart(item);
     console.log(item)
   }
-  
+
   return (
     <div className="col-lg-3 px-md-4 px-0 col-md-3 col-sm-4 card-wrapper">
       <div className="card mt-4">
@@ -142,15 +142,11 @@ const SinglePortfolio = ({ id, imageSrc, title, description, price, onAddToCart 
   );
 };
 
-const Portfolio = ({ showAll, onAddToCart }) => {
+const Portfolio = ({ showAll, onAddToCart, handleAddToCart }) => {
   const [filteredData, setFilteredData] = useState(
     showAll ? portfolioData : portfolioData.slice(0, 4)
   );
-  const handleAddToCart = (item) => {
 
-      onAddToCart([item]);
-    
-  };
   const onFilterChange = (searchTitle,selectedTechnologies,minPrice,maxPrice,sortBy) => {
     let filteredResult = [];
 
