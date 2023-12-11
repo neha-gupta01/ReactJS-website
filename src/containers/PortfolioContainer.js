@@ -58,10 +58,7 @@ const PortfolioContainer = () => {
     <React.Fragment>
       <Navbar />
       <Cart />
-      <Portfolio
-        showAll={true}
-
-      />
+      <Portfolio showAll={true} />
       <Footer />
     </React.Fragment>
   );
