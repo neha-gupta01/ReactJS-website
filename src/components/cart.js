@@ -1,13 +1,17 @@
 import React from "react";
+import { CartContext } from "../contexts/cartContext";
 
-const Cart = ({
-  isOpen,
-  onClose,
-  cartItems,
-  cartItemsTotalPrice,
-  handleRemoveToCart,
-  handleAddToCart,
-}) => {
+const Cart = () => {
+  const {
+    cartItems,
+    cartItemsTotalPrice,
+    handleRemoveToCart,
+    handleAddToCart,
+    showCart,
+    toggleCart,
+  } = React.useContext(CartContext);
+
+
   // const [cartItems, setCartItems] = useState([]);
 
   // const addToCart = (item) => {
@@ -50,11 +54,11 @@ const Cart = ({
   // }
 
   return (
-    <section className={`cart-box ${isOpen ? "open" : ""}`} id="cart">
+    <section className={`cart-box ${showCart ? "open" : ""}`} id="cart">
       <div className="container py-5">
         <div className="row mt-4 py-3">
           <div>
-            <button className="btn btn-dark" onClick={onClose}>
+            <button className="btn btn-dark" onClick={toggleCart}>
               X
             </button>
           </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PortfolioMenu from "./portfolioMenu";
+import { CartContext } from "../contexts/cartContext";
 
 const portfolioData = [
   {
@@ -117,13 +118,19 @@ const portfolioData = [
   },
 ];
 
-const SinglePortfolio = ({ id, imageSrc, title, description, price, onAddToCart }) => {
-
+const SinglePortfolio = ({
+  id,
+  imageSrc,
+  title,
+  description,
+  price,
+  onAddToCart,
+}) => {
   const handleAddToCart = () => {
     const item = { id, imageSrc, title, description, price, quantity: 1 };
     onAddToCart(item);
-    console.log(item)
-  }
+    console.log(item);
+  };
 
   return (
     <div className="col-lg-3 px-md-4 px-0 col-md-3 col-sm-4 card-wrapper">
@@ -133,7 +140,11 @@ const SinglePortfolio = ({ id, imageSrc, title, description, price, onAddToCart 
           <h6 className="card-title">{title}</h6>
           <p className="card-text text-secondary">{description}</p>
           <p className="fst-italic fw-bold">${price}</p>
-          <button type="button" className="btn btn-outline-primary btn-block" onClick={handleAddToCart}>
+          <button
+            type="button"
+            className="btn btn-outline-primary btn-block"
+            onClick={handleAddToCart}
+          >
             Add To Cart
           </button>
         </div>
@@ -142,12 +153,20 @@ const SinglePortfolio = ({ id, imageSrc, title, description, price, onAddToCart 
   );
 };
 
-const Portfolio = ({ showAll, onAddToCart, handleAddToCart }) => {
+const Portfolio = ({ showAll }) => {
   const [filteredData, setFilteredData] = useState(
     showAll ? portfolioData : portfolioData.slice(0, 4)
   );
 
-  const onFilterChange = (searchTitle,selectedTechnologies,minPrice,maxPrice,sortBy) => {
+  const { handleAddToCart, cartItems } = React.useContext(CartContext);
+
+  const onFilterChange = (
+    searchTitle,
+    selectedTechnologies,
+    minPrice,
+    maxPrice,
+    sortBy
+  ) => {
     let filteredResult = [];
 
     filteredResult = portfolioData.filter((item) => {
