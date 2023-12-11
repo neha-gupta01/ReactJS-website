@@ -142,15 +142,11 @@ const SinglePortfolio = ({ id, imageSrc, title, description, price, onAddToCart 
   );
 };
 
-const Portfolio = ({ showAll, onAddToCart }) => {
+const Portfolio = ({ showAll,handleAddToCart, cartItems }) => {
+
   const [filteredData, setFilteredData] = useState(
     showAll ? portfolioData : portfolioData.slice(0, 4)
   );
-  const handleAddToCart = (item) => {
-
-      onAddToCart([item]);
-    
-  };
   const onFilterChange = (searchTitle,selectedTechnologies,minPrice,maxPrice,sortBy) => {
     let filteredResult = [];
 

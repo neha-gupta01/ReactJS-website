@@ -1,14 +1,7 @@
-import React, { useState } from "react";
-import Cart from "./cart";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = ({onAddToCart, cartItems}) => {
-  const [showCart, setShowCart] = useState(false);
-  
-  const toggleCart = () => {
-    setShowCart(!showCart);
-  };
-
+const Navbar = ({ toggleCart, showCart, cartItemsCount }) => {
   return (
     <React.Fragment>
       <header className="bg-dark fixed-top">
@@ -61,7 +54,7 @@ const Navbar = ({onAddToCart, cartItems}) => {
                 <li className="nav-item mx-2">
                   <button className="nav-link" onClick={toggleCart}>
                     <i className="fa-solid fa-cart-shopping"></i>
-                    <span className="badge bg-danger">0</span>
+                    <span className="badge bg-danger">{cartItemsCount}</span>
                   </button>
                 </li>
               </ul>
@@ -69,7 +62,6 @@ const Navbar = ({onAddToCart, cartItems}) => {
           </div>
         </nav>
       </header>
-      <Cart isOpen={showCart} onClose={toggleCart}  />
     </React.Fragment>
   );
 };

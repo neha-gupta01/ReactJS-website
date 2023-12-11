@@ -1,54 +1,19 @@
 import React from "react";
 
-const Cart = ({ isOpen, onClose, cartItems  }) => {
-
- // const [cartItems, setCartItems] = useState([]);
-  
-// const addToCart = (item) => {
-//   const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
-
-//   if (existingItem) {
-//     setCartItems((prevCartItems) =>
-//       prevCartItems.map((cartItem) =>
-//         cartItem.id === item.id
-//           ? { ...cartItem, quantity: cartItem.quantity + 1 }
-//           : cartItem
-//       )
-//     );
-//   } else {
-//     setCartItems((prevCartItems) => [
-//       ...prevCartItems,
-//       { ...item, quantity: 1 },
-//     ]);
-//   }
-// };
-
-// const itemQuantity = (itemId, newQuantity) => {
-//   setCartItems((prevCartItems) =>
-//     prevCartItems.map((item) =>
-//       item.id === itemId ? { ...item, quantity: newQuantity } : item
-//     )
-//   );
-// };
-
-// const removeFromCart = (itemId) => {
-//   setCartItems((prevCartItems) =>
-//     prevCartItems.filter((cartItem) => cartItem.id !== itemId)
-//   );
-// };
-
-// const calculateTotalPrice = () => {
-//   return cartItems.reduce(
-//     (total, cartItem) => total + cartItem.price * cartItem.quantity
-//   );
-// }
-
+const Cart = ({
+  showCart,
+  toggleCart,
+  cartItems,
+  cartItemsTotalPrice,
+  handleRemoveToCart,
+  handleAddToCart,
+}) => {
   return (
-    <section className={`cart-box ${isOpen ? "open" : ""}`} id="cart">
+    <section className={`cart-box ${showCart ? "open" : ""}`} id="cart">
       <div className="container py-5">
         <div className="row mt-4 py-3">
           <div>
-            <button className="btn btn-dark" onClick={onClose}>
+            <button className="btn btn-dark" onClick={toggleCart}>
               X
             </button>
           </div>
@@ -77,42 +42,46 @@ const Cart = ({ isOpen, onClose, cartItems  }) => {
                     </tr>
                   </thead>
                   <tbody>
-                  {cartItems.map((item) => (
-                    <tr key={item.id}>
-                      <td className="details p-4">
-                        <div className="d-flex">
-                          <div className="mx-2">
-                            <img
-                              src={item.imageSrc}
-                              alt="portfolio-img"
-                            />
+                    {Object.values(cartItems).map((item) => (
+                      <tr key={item.id}>
+                        <td className="details p-4">
+                          <div className="d-flex">
+                            <div className="mx-2">
+                              <img src={item.imageSrc} alt="portfolio-img" />
+                            </div>
+                            <div>
+                              <p className="m-0">{item.title}</p>
+                              <p className="m-0 text-muted">
+                                {item.description}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="m-0">{item.title}</p>
-                            <p className="m-0 text-muted">{item.description}</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="text-center align-middle p-4">
-                        ${item.price}
-                      </td>
-                      <td className="text-center align-middle p-4 quantity">
-                        <input
-                          type="number"
-                          className="text-center "
-                          style={{ width: "50px" }}
-                          value={item.quantity}
-                          readOnly
-                        />
-                      </td>
-                      <td className="text-center align-middle p-4">${item.quantity * item.price}</td>
-                      <td className="text-center align-middle m-0">
-                        <button className="btn btn-danger" >
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className="text-center align-middle p-4">
+                          ${item.price}
+                        </td>
+                        <td className="text-center align-middle p-4 quantity">
+                          <input
+                            type="number"
+                            className="text-center "
+                            style={{ width: "50px" }}
+                            value={item.quantity}
+                            readOnly
+                          />
+                        </td>
+                        <td className="text-center align-middle p-4">
+                          ${item.quantity * item.price}
+                        </td>
+                        <td className="text-center align-middle m-0">
+                          <button className="btn btn-danger">
+                            <i
+                              className="fa-solid fa-trash"
+                              onClick={() => handleRemoveToCart(item.id)}
+                            ></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -120,7 +89,9 @@ const Cart = ({ isOpen, onClose, cartItems  }) => {
               <div className="d-flex justify-content-end">
                 <div>
                   <p className="fw-bold">Total Price</p>
-                  <p className="text-muted fw-bold text-end">${cartItems.reduce((total, item) => total + item.quantity * item.price, 0)}</p>
+                  <p className="text-muted fw-bold text-end">
+                    ${cartItemsTotalPrice}
+                  </p>
                 </div>
               </div>
 
