@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PortfolioMenu from "./portfolioMenu";
-import { CartContext } from "../contexts/cartContext";
 
 const portfolioData = [
   {
@@ -101,7 +100,7 @@ const portfolioData = [
     technologies: ["Python", "Plotly"],
   },
   {
-    id: 13,
+    id: 12,
     imageSrc: "images/data.jpg",
     title: "Data Visualization",
     description: "Python/Plotly",
@@ -109,7 +108,7 @@ const portfolioData = [
     technologies: ["Python", "Plotly"],
   },
   {
-    id: 14,
+    id: 13,
     imageSrc: "images/data.jpg",
     title: "Data Visualization",
     description: "Python/Plotly",
@@ -118,23 +117,13 @@ const portfolioData = [
   },
 ];
 
-const SinglePortfolio = ({
-  id,
-  imageSrc,
-  title,
-  description,
-  price,
-  onAddToCart,
-}) => {
-  const { cartItems, handleUpdateQuantity, handleAddToCart } =
-    React.useContext(CartContext);
+const SinglePortfolio = ({ id, imageSrc, title, description, price, onAddToCart }) => {
 
-  const isInCart = cartItems[id] !== undefined;
-
-  const handleAddToCartClick = () => {
+  const handleAddToCart = () => {
     const item = { id, imageSrc, title, description, price, quantity: 1 };
     onAddToCart(item);
-  };
+    console.log(item)
+  }
 
   return (
     <div className="col-lg-3 px-md-4 px-0 col-md-3 col-sm-4 card-wrapper">
@@ -144,54 +133,21 @@ const SinglePortfolio = ({
           <h6 className="card-title">{title}</h6>
           <p className="card-text text-secondary">{description}</p>
           <p className="fst-italic fw-bold">${price}</p>
-          {isInCart ? (
-            <div className="d-flex justify-content-center align-items-center">
-              <input
-                type="number"
-                className="text-center mx-2 "
-                style={{ width: "40px" }}
-                value={cartItems[id].quantity}
-                readOnly
-              />
-              <button
-                className="btn btn-sm btn-secondary"
-                onClick={() =>
-                  handleUpdateQuantity(id, cartItems[id].quantity + 1)
-                }
-              >
-                +
-              </button>
-            </div>
-          ) : (
-            <button
-              type="button"
-              className="btn btn-outline-primary btn-block"
-              onClick={handleAddToCartClick}
-            >
-              Add To Cart
-            </button>
-          )}
+          <button type="button" className="btn btn-outline-primary btn-block" onClick={handleAddToCart}>
+            Add To Cart
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-const Portfolio = ({ showAll }) => {
+const Portfolio = ({ showAll, onAddToCart, handleAddToCart }) => {
   const [filteredData, setFilteredData] = useState(
     showAll ? portfolioData : portfolioData.slice(0, 4)
   );
 
-  const { handleAddToCart, cartItems, handleUpdateQuantity } =
-    React.useContext(CartContext);
-
-  const onFilterChange = (
-    searchTitle,
-    selectedTechnologies,
-    minPrice,
-    maxPrice,
-    sortBy
-  ) => {
+  const onFilterChange = (searchTitle,selectedTechnologies,minPrice,maxPrice,sortBy) => {
     let filteredResult = [];
 
     filteredResult = portfolioData.filter((item) => {

@@ -1,10 +1,8 @@
 import React from "react";
+import Cart from "./cart";
 import { Link } from "react-router-dom";
-import { CartContext } from "../contexts/cartContext";
 
-const Navbar = () => {
-  const { toggleCart, cartItemsCount } = React.useContext(CartContext);
-
+const Navbar = ({ toggleCart, showCart, cartItemsCount }) => {
   return (
     <React.Fragment>
       <header className="bg-dark fixed-top">
@@ -57,9 +55,7 @@ const Navbar = () => {
                 <li className="nav-item mx-2">
                   <button className="nav-link" onClick={toggleCart}>
                     <i className="fa-solid fa-cart-shopping"></i>
-                    {cartItemsCount ? (
-                      <span className="badge bg-danger">{cartItemsCount}</span>
-                    ) : null}
+                    <span className="badge bg-danger">{cartItemsCount}</span>
                   </button>
                 </li>
               </ul>
