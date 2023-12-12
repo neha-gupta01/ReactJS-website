@@ -101,7 +101,7 @@ const portfolioData = [
     technologies: ["Python", "Plotly"],
   },
   {
-    id: 12,
+    id: 13,
     imageSrc: "images/data.jpg",
     title: "Data Visualization",
     description: "Python/Plotly",
@@ -109,7 +109,7 @@ const portfolioData = [
     technologies: ["Python", "Plotly"],
   },
   {
-    id: 13,
+    id: 14,
     imageSrc: "images/data.jpg",
     title: "Data Visualization",
     description: "Python/Plotly",
@@ -126,10 +126,14 @@ const SinglePortfolio = ({
   price,
   onAddToCart,
 }) => {
-  const handleAddToCart = () => {
+  const { cartItems, handleUpdateQuantity, handleAddToCart } =
+    React.useContext(CartContext);
+
+  const isInCart = cartItems[id] !== undefined;
+
+  const handleAddToCartClick = () => {
     const item = { id, imageSrc, title, description, price, quantity: 1 };
     onAddToCart(item);
-    console.log(item);
   };
 
   return (
@@ -140,13 +144,33 @@ const SinglePortfolio = ({
           <h6 className="card-title">{title}</h6>
           <p className="card-text text-secondary">{description}</p>
           <p className="fst-italic fw-bold">${price}</p>
-          <button
-            type="button"
-            className="btn btn-outline-primary btn-block"
-            onClick={handleAddToCart}
-          >
-            Add To Cart
-          </button>
+          {isInCart ? (
+            <div className="d-flex justify-content-center align-items-center">
+              <input
+                type="number"
+                className="text-center mx-2 "
+                style={{ width: "40px" }}
+                value={cartItems[id].quantity}
+                readOnly
+              />
+              <button
+                className="btn btn-sm btn-secondary"
+                onClick={() =>
+                  handleUpdateQuantity(id, cartItems[id].quantity + 1)
+                }
+              >
+                +
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-outline-primary btn-block"
+              onClick={handleAddToCartClick}
+            >
+              Add To Cart
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -158,7 +182,8 @@ const Portfolio = ({ showAll }) => {
     showAll ? portfolioData : portfolioData.slice(0, 4)
   );
 
-  const { handleAddToCart, cartItems } = React.useContext(CartContext);
+  const { handleAddToCart, cartItems, handleUpdateQuantity } =
+    React.useContext(CartContext);
 
   const onFilterChange = (
     searchTitle,

@@ -11,7 +11,7 @@ const MainContainer = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <Cart/>
+      <Cart />
       <Homepage />
       <Skills />
       <Portfolio showAll={false} />

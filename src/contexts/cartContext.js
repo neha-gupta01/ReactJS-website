@@ -1,72 +1,73 @@
-import React, { createContext } from 'react';
+import React, { createContext } from "react";
 
 export const CartContext = createContext({});
 
+export const CartProvider = ({ children }) => {
+  const [cartItems, setCartItems] = React.useState({});
+  const [cartItemsCount, setCartItemsCount] = React.useState(0);
+  const [cartItemsTotalPrice, setCartItemsTotalPrice] = React.useState(0);
+  const [showCart, setShowCart] = React.useState(false);
 
-export const CartProvider = ({children}) =>{
-	const [cartItems, setCartItems] = React.useState({});
-	const [cartItemsCount, setCartItemsCount] = React.useState(0);
-	const [cartItemsTotalPrice, setCartItemsTotalPrice] = React.useState(0);
+  React.useEffect(() => {
+    let total = 0;
+    let count = 0;
+    Object.values(cartItems).map((item) => {
+      total = total + item.price * item.quantity;
+      count = count + item.quantity;
+    });
 
-	const [showCart, setShowCart] = React.useState(false);
+    setCartItemsTotalPrice(total);
+    setCartItemsCount(count);
+  }, [cartItems]);
 
-	React.useEffect(() => {
-	  let total = 0;
-	  Object.values(cartItems).map((item) => {
-		total = total + item.price * item.quantity;
-	  });
+  const toggleCart = () => {
+    setShowCart(!showCart);
+  };
 
-	  setCartItemsTotalPrice(total);
-	}, [cartItemsCount]);
+  const handleAddToCart = (item) => {
+    setCartItems((prevItems) => {
+      const temp = { ...prevItems };
+      if (temp[item.id]) {
+        temp[item.id].quantity = temp[item.id].quantity + 1;
+      } else {
+        temp[item.id] = {
+          ...item,
+          quantity: 1,
+        };
+      }
+      return temp;
+    });
+    setCartItemsCount((prevItems) => ++prevItems);
+  };
 
-	const toggleCart = () => {
-	  setShowCart(!showCart);
-	};
+  const handleUpdateQuantity = (id, newQuantity) => {
+    setCartItems((prevItems) => {
+      const temp = { ...prevItems };
+      if (temp[id]) {
+        if (newQuantity === 0) {
+          delete temp[id];
+        } else {
+          temp[id].quantity = newQuantity;
+        }
+      }
 
-	const handleAddToCart = (item) => {
-	  let temp = cartItems;
-	  if (temp[item.id]) {
-		temp[item.id].quantity = temp[item.id].quantity + 1;
-	  } else {
-		temp[item.id] = {
-		  ...item,
-		  quantity: 1,
-		};
-	  }
-	  setCartItems(temp);
-	  setCartItemsCount((prevItems) => ++prevItems);
-	};
+      return temp;
+    });
+  };
 
-	const handleRemoveToCart = (id) => {
-	  let temp = cartItems;
-	  if (temp[id]) {
-		if (temp[id].quantity == 1) {
-		  delete temp[id];
-		} else {
-		  temp[id].quantity = temp[id].quantity - 1;
-		}
-
-		setCartItems(temp);
-		setCartItemsCount((prevItems) => --prevItems);
-	  }
-	};
-
-	console.log({children})
-
-	return (
-	  <CartContext.Provider
-		value={{
-		  cartItems,
-		  cartItemsCount,
-		  cartItemsTotalPrice,
-		  showCart,
-		  toggleCart,
-		  handleAddToCart,
-		  handleRemoveToCart,
-		}}
-	  >
-		{children}
-	  </CartContext.Provider>
-	);
-}
-
+  return (
+    <CartContext.Provider
+      value={{
+        cartItems,
+        cartItemsCount,
+        cartItemsTotalPrice,
+        showCart,
+        toggleCart,
+        handleAddToCart,
+        handleUpdateQuantity,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};
