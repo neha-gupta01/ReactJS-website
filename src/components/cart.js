@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../contexts/cartContext";
 
@@ -12,8 +12,20 @@ const Cart = () => {
     handleUpdateQuantity,
   } = React.useContext(CartContext);
 
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (showCart && !document.getElementById("cart-box").contains(e.target)) {
+        toggleCart();
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showCart, toggleCart]);
+
   return (
-    <section className={`cart-box ${showCart ? "open" : ""}`} id="cart">
+    <section className={`cart-box ${showCart ? "open" : ""}`} id="cart-box">
       <div className="container py-5">
         <div className="row mt-4 py-3">
           <div>
