@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/navbar";
-import CV from "../components/cv";
+import Cv from "../components/cv";
 import Footer from "../components/footer";
 import Cart from "../components/cart";
 
@@ -9,7 +9,7 @@ const CvContainer = () => {
     <React.Fragment>
       <Navbar />
       <Cart />
-      <CV />
+      <Cv />
       <Footer />
     </React.Fragment>
   );

@@ -1,40 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const CV = () => {
-  const cvData = {
-    personalInfo: {
-      profileImage: "images/profile.jpg",
-      name: "James Anderson",
-      email: " your.email@example.com",
-      phone: "(123) 456-7890",
-      address: "Your address",
-    },
-    technicalSkills: ["HTML", "CSS", "Javascript"],
-    personalInterests: ["Interest 1", "Interest 2", "Interest 3"],
-    profile:
-      "Write a brief description of yourself, your background, and your goals. Highlight your key strengths and experiences. ",
-    qualifications: ["Qualification 1", "Qualification 2", "Qualification 3"],
-    eduction: {
-      year: "Year - Year",
-      institute: "University/Institution",
-      degree: "Degree/Program",
-    },
-    coursesTraining: {
-      year: "Year",
-      course: "Course/Training",
-      degree: "Institution/Organization",
-    },
-    workExperience: {
-      year: "Year - Year",
-      position: "Job Position",
-      company: "Company/Organization",
-    },
-    extracurricularActivities: {
-      organization: "Organization Name",
-      role: "Role/Position",
-      details: "Details of your involvement and contributions",
-    },
-  };
+const Cv = () => {
+  const [cvData, setCvData] = useState([]);
+
+  useEffect(() => {
+    const fetchCvData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/cv");
+        console.log(response);
+        const data = await response.json();
+        console.log(data);
+        setCvData(data);
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    };
+    fetchCvData();
+  }, []);
 
   return (
     <section className="container py-5" id="cv">
@@ -54,18 +36,18 @@ const CV = () => {
             src="images/profile.jpg"
             alt="profile"
           />
-          <h2 className="mt-3">{cvData.personalInfo.name}</h2>
+          <h2 className="mt-3">{cvData.personalInfo?.name}</h2>
           <ul className="list-unstyled">
             <li>
               <i className="fas fa-envelope me-2"></i>{" "}
-              {cvData.personalInfo.email}
+              {cvData.personalInfo?.email}
             </li>
             <li>
-              <i className="fas fa-phone me-2"></i> {cvData.personalInfo.phone}
+              <i className="fas fa-phone me-2"></i> {cvData.personalInfo?.phone}
             </li>
             <li>
               <i className="fas fa-map-marker-alt me-2"></i>{" "}
-              {cvData.personalInfo.address}
+              {cvData.personalInfo?.address}
             </li>
           </ul>
           <ul className="social-icons my-5 d-flex justify-content-center list-unstyled">
@@ -96,13 +78,13 @@ const CV = () => {
           </ul>
           <h5>Technical Skills</h5>
           <ul className="list-unstyled">
-            {cvData.technicalSkills.map((skill, index) => (
+            {cvData.technicalSkills?.map((skill, index) => (
               <li key={index}>{skill}</li>
             ))}
           </ul>
           <h5>Personal Interests</h5>
           <ul className="list-unstyled">
-            {cvData.personalInterests.map((interest, index) => (
+            {cvData.personalInterests?.map((interest, index) => (
               <li key={index}>{interest}</li>
             ))}
           </ul>
@@ -114,37 +96,37 @@ const CV = () => {
           <h3>Highlights of Qualifications</h3>
           <hr />
           <ul>
-            {cvData.qualifications.map((qualification, index) => (
+            {cvData.qualifications?.map((qualification, index) => (
               <li key={index}>{qualification}</li>
             ))}
           </ul>
           <h3>Education</h3>
           <hr />
           <dl>
-            <dt>{cvData.eduction.year}</dt>
-            <dd>{cvData.eduction.institute}</dd>
-            <dd>{cvData.eduction.degree}</dd>
+            <dt>{cvData.eduction?.year}</dt>
+            <dd>{cvData.eduction?.institute}</dd>
+            <dd>{cvData.eduction?.degree}</dd>
           </dl>
           <h3>Additional Courses & Training</h3>
           <hr />
           <dl>
-            <dt>{cvData.coursesTraining.year}</dt>
-            <dd>{cvData.coursesTraining.course}</dd>
-            <dd>{cvData.coursesTraining.institute}</dd>
+            <dt>{cvData.coursesTraining?.year}</dt>
+            <dd>{cvData.coursesTraining?.course}</dd>
+            <dd>{cvData.coursesTraining?.institute}</dd>
           </dl>
           <h3>Work Experience</h3>
           <hr />
           <dl>
-            <dt>{cvData.workExperience.year}</dt>
-            <dd>{cvData.workExperience.position}</dd>
-            <dd>{cvData.workExperience.company}</dd>
+            <dt>{cvData.workExperience?.year}</dt>
+            <dd>{cvData.workExperience?.position}</dd>
+            <dd>{cvData.workExperience?.company}</dd>
           </dl>
           <h3>Extracurricular Activities</h3>
           <hr />
           <dl>
-            <dt>{cvData.extracurricularActivities.organization}</dt>
-            <dd>{cvData.extracurricularActivities.role}</dd>
-            <dd>{cvData.extracurricularActivities.details}</dd>
+            <dt>{cvData.extracurricularActivities?.organization}</dt>
+            <dd>{cvData.extracurricularActivities?.role}</dd>
+            <dd>{cvData.extracurricularActivities?.details}</dd>
           </dl>
         </div>
       </div>
@@ -152,4 +134,4 @@ const CV = () => {
   );
 };
 
-export default CV;
+export default Cv;

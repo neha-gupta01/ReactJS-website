@@ -1,121 +1,121 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PortfolioMenu from "./portfolioMenu";
 import { CartContext } from "../contexts/cartContext";
 
 const portfolioData = [
-  {
-    id: 1,
-    imageSrc: "images/e-commerce.png",
-    title: "E-commerce Website",
-    description: "HTML/CSS/JavaScript",
-    price: 59,
-    technologies: ["HTML", "CSS", "Javascript"],
-  },
-  {
-    id: 2,
-    imageSrc: "images/landing-page.jpg",
-    title: "Landing Page",
-    description: "HTML/CSS/Bootstrap",
-    price: 12,
-    technologies: ["HTML", "CSS", "Bootstrap"],
-  },
-  {
-    id: 3,
-    imageSrc: "images/calculator-app.jpg",
-    title: "Calculator App",
-    description: "HTML/CSS/Javascript",
-    price: 46,
-    technologies: ["HTML", "CSS", "Javascript"],
-  },
-  {
-    id: 4,
-    imageSrc: "images/blog.jpg",
-    title: "Blog Website",
-    description: "HTML/CSS/PHP",
-    price: 40,
-    technologies: ["HTML", "CSS", "PHP"],
-  },
-  {
-    id: 5,
-    imageSrc: "images/task.jpg",
-    title: "Task Management App",
-    description: "ReactJS",
-    price: 25,
-    technologies: ["ReactJS"],
-  },
-  {
-    id: 6,
-    imageSrc: "images/data.jpg",
-    title: "Data Visualization",
-    description: "Python/Plotly",
-    price: 20,
-    technologies: ["Python", "Plotly"],
-  },
-  {
-    id: 7,
-    imageSrc: "images/data.jpg",
-    title: "Data Visualization",
-    description: "Python/Plotly",
-    price: 27,
-    technologies: ["Python", "Plotly"],
-  },
-  {
-    id: 8,
-    imageSrc: "images/data.jpg",
-    title: "Data Visualization",
-    description: "Python/Plotly",
-    price: 62,
-    technologies: ["Python", "Plotly"],
-  },
-  {
-    id: 9,
-    imageSrc: "images/data.jpg",
-    title: "Data Visualization",
-    description: "Python/Plotly",
-    price: 14,
-    technologies: ["Python", "Plotly"],
-  },
-  {
-    id: 10,
-    imageSrc: "images/data.jpg",
-    title: "Data Visualization",
-    description: "Python/Plotly",
-    price: 50,
-    technologies: ["Python", "Plotly"],
-  },
-  {
-    id: 11,
-    imageSrc: "images/data.jpg",
-    title: "Data Visualization",
-    description: "Python/Plotly",
-    price: 55,
-    technologies: ["Python", "Plotly"],
-  },
-  {
-    id: 12,
-    imageSrc: "images/data.jpg",
-    title: "Data Visualization",
-    description: "Python/Plotly",
-    price: 5,
-    technologies: ["Python", "Plotly"],
-  },
-  {
-    id: 13,
-    imageSrc: "images/data.jpg",
-    title: "Data Visualization",
-    description: "Python/Plotly",
-    price: 19,
-    technologies: ["Python", "Plotly"],
-  },
-  {
-    id: 14,
-    imageSrc: "images/data.jpg",
-    title: "Data Visualization",
-    description: "Python/Plotly",
-    price: 7,
-    technologies: ["Python", "Plotly"],
-  },
+{
+id: 1,
+imageSrc: "images/e-commerce.png",
+title: "E-commerce Website",
+description: "HTML/CSS/JavaScript",
+price: 59,
+technologies: ["HTML", "CSS", "Javascript"],
+},
+{
+id: 2,
+imageSrc: "images/landing-page.jpg",
+title: "Landing Page",
+description: "HTML/CSS/Bootstrap",
+price: 12,
+technologies: ["HTML", "CSS", "Bootstrap"],
+},
+{
+id: 3,
+imageSrc: "images/calculator-app.jpg",
+title: "Calculator App",
+description: "HTML/CSS/Javascript",
+price: 46,
+technologies: ["HTML", "CSS", "Javascript"],
+},
+{
+id: 4,
+imageSrc: "images/blog.jpg",
+title: "Blog Website",
+description: "HTML/CSS/PHP",
+price: 40,
+technologies: ["HTML", "CSS", "PHP"],
+},
+{
+id: 5,
+imageSrc: "images/task.jpg",
+title: "Task Management App",
+description: "ReactJS",
+price: 25,
+technologies: ["ReactJS"],
+},
+{
+id: 6,
+imageSrc: "images/data.jpg",
+title: "Data Visualization",
+description: "Python/Plotly",
+price: 20,
+technologies: ["Python", "Plotly"],
+},
+{
+id: 7,
+imageSrc: "images/data.jpg",
+title: "Data Visualization",
+description: "Python/Plotly",
+price: 27,
+technologies: ["Python", "Plotly"],
+},
+{
+id: 8,
+imageSrc: "images/data.jpg",
+title: "Data Visualization",
+description: "Python/Plotly",
+price: 62,
+technologies: ["Python", "Plotly"],
+},
+{
+id: 9,
+imageSrc: "images/data.jpg",
+title: "Data Visualization",
+description: "Python/Plotly",
+price: 14,
+technologies: ["Python", "Plotly"],
+},
+{
+id: 10,
+imageSrc: "images/data.jpg",
+title: "Data Visualization",
+description: "Python/Plotly",
+price: 50,
+technologies: ["Python", "Plotly"],
+},
+{
+id: 11,
+imageSrc: "images/data.jpg",
+title: "Data Visualization",
+description: "Python/Plotly",
+price: 55,
+technologies: ["Python", "Plotly"],
+},
+{
+id: 12,
+imageSrc: "images/data.jpg",
+title: "Data Visualization",
+description: "Python/Plotly",
+price: 5,
+technologies: ["Python", "Plotly"],
+},
+{
+id: 13,
+imageSrc: "images/data.jpg",
+title: "Data Visualization",
+description: "Python/Plotly",
+price: 19,
+technologies: ["Python", "Plotly"],
+},
+{
+id: 14,
+imageSrc: "images/data.jpg",
+title: "Data Visualization",
+description: "Python/Plotly",
+price: 7,
+technologies: ["Python", "Plotly"],
+},
 ];
 
 const SinglePortfolio = ({
@@ -178,12 +178,45 @@ const SinglePortfolio = ({
 };
 
 const Portfolio = ({ showAll }) => {
-  const [filteredData, setFilteredData] = useState(
-    showAll ? portfolioData : portfolioData.slice(0, 4)
-  );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [filteredData, setFilteredData] = useState([]);
+  //const [portfolioData, setPortfolioData] = useState([]);
+
 
   const { handleAddToCart, cartItems, handleUpdateQuantity } =
     React.useContext(CartContext);
+
+
+  // useEffect(() => {
+  //   const fetchPortfolioData = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:3001/portfolio");
+  //       console.log(response);
+  //       const data = await response.json();
+  //       console.log(data);
+  //       setPortfolioData(data);
+  //       setTotalPages(Math.ceil(data.length / itemsPerPage));
+  //       paginate(1);
+  //     } catch (error) {
+  //       console.log("Error fetching data:", error);
+  //     }
+  //   };
+  //   fetchPortfolioData();
+  // }, [itemsPerPage]);
+
+  useEffect(() => {
+    setTotalPages(Math.ceil(portfolioData.length / itemsPerPage));
+    setFilteredData(portfolioData.slice(0, itemsPerPage));
+  }, [ itemsPerPage]);
+  
+    const paginate = (pageNo) => {
+      setCurrentPage(pageNo);
+      const start = (pageNo - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      setFilteredData(portfolioData.slice(start, end));
+    };
 
   const onFilterChange = (
     searchTitle,
@@ -223,6 +256,8 @@ const Portfolio = ({ showAll }) => {
       filteredResult.sort((a, b) => b.price - a.price);
     }
     setFilteredData(filteredResult);
+    setTotalPages(Math.ceil(filteredResult.length / itemsPerPage));
+    setCurrentPage(1);
   };
 
   const title = (
@@ -236,8 +271,18 @@ const Portfolio = ({ showAll }) => {
     </div>
   );
 
-  const [menuVisible, setMenuVisible] = useState(false);
+  const pageButtons = [];
+  for(let pageNo = 1; pageNo <= totalPages; pageNo++){
+    pageButtons.push(
+      <li key={pageNo} className={`page-item ${pageNo === currentPage && "active"}`}>
+        <button className="page-link" onClick={() => paginate(pageNo)}>
+          {pageNo}
+        </button>
+      </li>
+    )
+  }
 
+  const [menuVisible, setMenuVisible] = useState(false);
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
@@ -270,7 +315,7 @@ const Portfolio = ({ showAll }) => {
         >
           {title}
           <div className="row mt-5 mx-0 justify-content-center align-items-center">
-            {filteredData.map((item, index) => (
+            {filteredData?.map((item, index) => (
               <SinglePortfolio
                 key={index}
                 id={item.id}
@@ -292,6 +337,41 @@ const Portfolio = ({ showAll }) => {
               </Link>
             </div>
           ) : null}
+          {showAll && (
+            <div className="row mt-3">
+              <div className="col-12 d-flex align-items-center justify-content-end">
+                <label className="me-2">Items:</label>
+                <input
+                  type="number"
+                  min="1"
+                  className="form-control me-2"
+                  value={itemsPerPage}
+                  style={{ width: "60px" }}
+                  onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                />
+                <nav aria-label="Page navigation" className="d-flex align-items-center">
+                  <ul className="pagination mb-0">
+                    {currentPage > 1 && (
+                      <li className="page-item">
+                        <button className="page-link" onClick={() => paginate(currentPage - 1)}>
+                          Prev
+                        </button>
+                      </li>
+                    )}
+                    {pageButtons}
+                    {currentPage < totalPages && (
+                      <li className="page-item">
+                        <button className="page-link" onClick={() => paginate(currentPage + 1)}>
+                          Next
+                        </button>
+                      </li>
+                    )}
+                  </ul>
+                </nav>
+                <span className="ms-2"> {totalPages} pages</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
