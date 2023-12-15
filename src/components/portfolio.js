@@ -3,120 +3,120 @@ import { Link } from "react-router-dom";
 import PortfolioMenu from "./portfolioMenu";
 import { CartContext } from "../contexts/cartContext";
 
-const portfolioData = [
-{
-id: 1,
-imageSrc: "images/e-commerce.png",
-title: "E-commerce Website",
-description: "HTML/CSS/JavaScript",
-price: 59,
-technologies: ["HTML", "CSS", "Javascript"],
-},
-{
-id: 2,
-imageSrc: "images/landing-page.jpg",
-title: "Landing Page",
-description: "HTML/CSS/Bootstrap",
-price: 12,
-technologies: ["HTML", "CSS", "Bootstrap"],
-},
-{
-id: 3,
-imageSrc: "images/calculator-app.jpg",
-title: "Calculator App",
-description: "HTML/CSS/Javascript",
-price: 46,
-technologies: ["HTML", "CSS", "Javascript"],
-},
-{
-id: 4,
-imageSrc: "images/blog.jpg",
-title: "Blog Website",
-description: "HTML/CSS/PHP",
-price: 40,
-technologies: ["HTML", "CSS", "PHP"],
-},
-{
-id: 5,
-imageSrc: "images/task.jpg",
-title: "Task Management App",
-description: "ReactJS",
-price: 25,
-technologies: ["ReactJS"],
-},
-{
-id: 6,
-imageSrc: "images/data.jpg",
-title: "Data Visualization",
-description: "Python/Plotly",
-price: 20,
-technologies: ["Python", "Plotly"],
-},
-{
-id: 7,
-imageSrc: "images/data.jpg",
-title: "Data Visualization",
-description: "Python/Plotly",
-price: 27,
-technologies: ["Python", "Plotly"],
-},
-{
-id: 8,
-imageSrc: "images/data.jpg",
-title: "Data Visualization",
-description: "Python/Plotly",
-price: 62,
-technologies: ["Python", "Plotly"],
-},
-{
-id: 9,
-imageSrc: "images/data.jpg",
-title: "Data Visualization",
-description: "Python/Plotly",
-price: 14,
-technologies: ["Python", "Plotly"],
-},
-{
-id: 10,
-imageSrc: "images/data.jpg",
-title: "Data Visualization",
-description: "Python/Plotly",
-price: 50,
-technologies: ["Python", "Plotly"],
-},
-{
-id: 11,
-imageSrc: "images/data.jpg",
-title: "Data Visualization",
-description: "Python/Plotly",
-price: 55,
-technologies: ["Python", "Plotly"],
-},
-{
-id: 12,
-imageSrc: "images/data.jpg",
-title: "Data Visualization",
-description: "Python/Plotly",
-price: 5,
-technologies: ["Python", "Plotly"],
-},
-{
-id: 13,
-imageSrc: "images/data.jpg",
-title: "Data Visualization",
-description: "Python/Plotly",
-price: 19,
-technologies: ["Python", "Plotly"],
-},
-{
-id: 14,
-imageSrc: "images/data.jpg",
-title: "Data Visualization",
-description: "Python/Plotly",
-price: 7,
-technologies: ["Python", "Plotly"],
-},
-];
+// const portfolioData = [
+// {
+// id: 1,
+// imageSrc: "images/e-commerce.png",
+// title: "E-commerce Website",
+// description: "HTML/CSS/JavaScript",
+// price: 59,
+// technologies: ["HTML", "CSS", "Javascript"],
+// },
+// {
+// id: 2,
+// imageSrc: "images/landing-page.jpg",
+// title: "Landing Page",
+// description: "HTML/CSS/Bootstrap",
+// price: 12,
+// technologies: ["HTML", "CSS", "Bootstrap"],
+// },
+// {
+// id: 3,
+// imageSrc: "images/calculator-app.jpg",
+// title: "Calculator App",
+// description: "HTML/CSS/Javascript",
+// price: 46,
+// technologies: ["HTML", "CSS", "Javascript"],
+// },
+// {
+// id: 4,
+// imageSrc: "images/blog.jpg",
+// title: "Blog Website",
+// description: "HTML/CSS/PHP",
+// price: 40,
+// technologies: ["HTML", "CSS", "PHP"],
+// },
+// {
+// id: 5,
+// imageSrc: "images/task.jpg",
+// title: "Task Management App",
+// description: "ReactJS",
+// price: 25,
+// technologies: ["ReactJS"],
+// },
+// {
+// id: 6,
+// imageSrc: "images/data.jpg",
+// title: "Data Visualization",
+// description: "Python/Plotly",
+// price: 20,
+// technologies: ["Python", "Plotly"],
+// },
+// {
+// id: 7,
+// imageSrc: "images/data.jpg",
+// title: "Data Visualization",
+// description: "Python/Plotly",
+// price: 27,
+// technologies: ["Python", "Plotly"],
+// },
+// {
+// id: 8,
+// imageSrc: "images/data.jpg",
+// title: "Data Visualization",
+// description: "Python/Plotly",
+// price: 62,
+// technologies: ["Python", "Plotly"],
+// },
+// {
+// id: 9,
+// imageSrc: "images/data.jpg",
+// title: "Data Visualization",
+// description: "Python/Plotly",
+// price: 14,
+// technologies: ["Python", "Plotly"],
+// },
+// {
+// id: 10,
+// imageSrc: "images/data.jpg",
+// title: "Data Visualization",
+// description: "Python/Plotly",
+// price: 50,
+// technologies: ["Python", "Plotly"],
+// },
+// {
+// id: 11,
+// imageSrc: "images/data.jpg",
+// title: "Data Visualization",
+// description: "Python/Plotly",
+// price: 55,
+// technologies: ["Python", "Plotly"],
+// },
+// {
+// id: 12,
+// imageSrc: "images/data.jpg",
+// title: "Data Visualization",
+// description: "Python/Plotly",
+// price: 5,
+// technologies: ["Python", "Plotly"],
+// },
+// {
+// id: 13,
+// imageSrc: "images/data.jpg",
+// title: "Data Visualization",
+// description: "Python/Plotly",
+// price: 19,
+// technologies: ["Python", "Plotly"],
+// },
+// {
+// id: 14,
+// imageSrc: "images/data.jpg",
+// title: "Data Visualization",
+// description: "Python/Plotly",
+// price: 7,
+// technologies: ["Python", "Plotly"],
+// },
+// ];
 
 const SinglePortfolio = ({
   id,
@@ -179,44 +179,47 @@ const SinglePortfolio = ({
 
 const Portfolio = ({ showAll }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(10);
   const [itemsPerPage, setItemsPerPage] = useState(4);
-  const [filteredData, setFilteredData] = useState([]);
-  //const [portfolioData, setPortfolioData] = useState([]);
-
+  const [portfolioList, setPortfolioList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const { handleAddToCart, cartItems, handleUpdateQuantity } =
     React.useContext(CartContext);
 
+  useEffect(() => {
+    fetchPortfolioData();
+  }, []);
 
-  // useEffect(() => {
-  //   const fetchPortfolioData = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:3001/portfolio");
-  //       console.log(response);
-  //       const data = await response.json();
-  //       console.log(data);
-  //       setPortfolioData(data);
-  //       setTotalPages(Math.ceil(data.length / itemsPerPage));
-  //       paginate(1);
-  //     } catch (error) {
-  //       console.log("Error fetching data:", error);
-  //     }
-  //   };
-  //   fetchPortfolioData();
-  // }, [itemsPerPage]);
+  const fetchPortfolioData = () => {
+    fetch(
+      `http://localhost:3001/portfolio?current_page=${currentPage}&page_size=${itemsPerPage}`
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        setPortfolioList(response.data || []);
+        setTotalPages(response?.paginate?.total_page || 0);
+      })
+      .catch((error) => {
+        console.log("Error fetching data:", error);
+      })
+      .finally(() => {
+        // setLoading(false);
+      });
+  };
 
   useEffect(() => {
-    setTotalPages(Math.ceil(portfolioData.length / itemsPerPage));
-    setFilteredData(portfolioData.slice(0, itemsPerPage));
-  }, [ itemsPerPage]);
-  
-    const paginate = (pageNo) => {
-      setCurrentPage(pageNo);
-      const start = (pageNo - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      setFilteredData(portfolioData.slice(start, end));
-    };
+    setLoading(true)
+    fetchPortfolioData();
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (currentPage == 1) {
+      fetchPortfolioData();
+    } else {
+      setCurrentPage(1);
+    }
+  }, [itemsPerPage]);
 
   const onFilterChange = (
     searchTitle,
@@ -225,39 +228,36 @@ const Portfolio = ({ showAll }) => {
     maxPrice,
     sortBy
   ) => {
-    let filteredResult = [];
-
-    filteredResult = portfolioData.filter((item) => {
-      if (
-        searchTitle &&
-        !item.title.toLowerCase().includes(searchTitle.toLowerCase())
-      ) {
-        return false;
-      }
-
-      const commonTechnologies = item.technologies.filter((tech) =>
-        selectedTechnologies.includes(tech)
-      );
-      if (selectedTechnologies.length !== commonTechnologies.length) {
-        return false;
-      }
-
-      if (minPrice && item.price < parseInt(minPrice)) {
-        return false;
-      }
-      if (maxPrice && item.price > parseInt(maxPrice)) {
-        return false;
-      }
-      return true;
-    });
-    if (sortBy === "lowToHigh") {
-      filteredResult.sort((a, b) => a.price - b.price);
-    } else if (sortBy === "highToLow") {
-      filteredResult.sort((a, b) => b.price - a.price);
-    }
-    setFilteredData(filteredResult);
-    setTotalPages(Math.ceil(filteredResult.length / itemsPerPage));
-    setCurrentPage(1);
+    // let filteredResult = [];
+    // filteredResult = portfolioData.filter((item) => {
+    //   if (
+    //     searchTitle &&
+    //     !item.title.toLowerCase().includes(searchTitle.toLowerCase())
+    //   ) {
+    //     return false;
+    //   }
+    //   const commonTechnologies = item.technologies.filter((tech) =>
+    //     selectedTechnologies.includes(tech)
+    //   );
+    //   if (selectedTechnologies.length !== commonTechnologies.length) {
+    //     return false;
+    //   }
+    //   if (minPrice && item.price < parseInt(minPrice)) {
+    //     return false;
+    //   }
+    //   if (maxPrice && item.price > parseInt(maxPrice)) {
+    //     return false;
+    //   }
+    //   return true;
+    // });
+    // if (sortBy === "lowToHigh") {
+    //   filteredResult.sort((a, b) => a.price - b.price);
+    // } else if (sortBy === "highToLow") {
+    //   filteredResult.sort((a, b) => b.price - a.price);
+    // }
+    // setFilteredData(filteredResult);
+    // setTotalPages(Math.ceil(filteredResult.length / itemsPerPage));
+    // setCurrentPage(1);
   };
 
   const title = (
@@ -271,16 +271,24 @@ const Portfolio = ({ showAll }) => {
     </div>
   );
 
-  const pageButtons = [];
-  for(let pageNo = 1; pageNo <= totalPages; pageNo++){
-    pageButtons.push(
-      <li key={pageNo} className={`page-item ${pageNo === currentPage && "active"}`}>
-        <button className="page-link" onClick={() => paginate(pageNo)}>
-          {pageNo}
-        </button>
-      </li>
-    )
-  }
+  const getPaginationSequence = () => {
+    let items = [];
+
+    for (let pageNo = 1; pageNo <= totalPages; pageNo++) {
+      items.push(
+        <li
+          key={pageNo}
+          className={`page-item ${pageNo === currentPage && "active"}`}
+        >
+          <button className="page-link" onClick={() => setCurrentPage(pageNo)}>
+            {pageNo}
+          </button>
+        </li>
+      );
+    }
+
+    return items;
+  };
 
   const [menuVisible, setMenuVisible] = useState(false);
   const toggleMenu = () => {
@@ -314,19 +322,24 @@ const Portfolio = ({ showAll }) => {
           }`}
         >
           {title}
-          <div className="row mt-5 mx-0 justify-content-center align-items-center">
-            {filteredData?.map((item, index) => (
-              <SinglePortfolio
-                key={index}
-                id={item.id}
-                imageSrc={item.imageSrc}
-                title={item.title}
-                description={item.description}
-                price={item.price}
-                onAddToCart={handleAddToCart}
-              />
-            ))}
-          </div>
+          {loading ? (
+            "Loading......"
+          ) : (
+            <div className="row mt-5 mx-0 justify-content-center align-items-center">
+              {portfolioList.length ? portfolioList.map((item, index) => (
+                <SinglePortfolio
+                  key={index}
+                  id={item.id}
+                  imageSrc={item.imageSrc}
+                  title={item.title}
+                  description={item.description}
+                  price={item.price}
+                  onAddToCart={handleAddToCart}
+                />
+              )) : "No Data"}
+            </div>
+          )}
+
           {!showAll ? (
             <div className="col-12 mt-3 d-flex justify-content-center">
               <Link
@@ -349,23 +362,31 @@ const Portfolio = ({ showAll }) => {
                   style={{ width: "60px" }}
                   onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
                 />
-                <nav aria-label="Page navigation" className="d-flex align-items-center">
+                <nav
+                  aria-label="Page navigation"
+                  className="d-flex align-items-center"
+                >
                   <ul className="pagination mb-0">
-                    {currentPage > 1 && (
-                      <li className="page-item">
-                        <button className="page-link" onClick={() => paginate(currentPage - 1)}>
-                          Prev
-                        </button>
-                      </li>
-                    )}
-                    {pageButtons}
-                    {currentPage < totalPages && (
-                      <li className="page-item">
-                        <button className="page-link" onClick={() => paginate(currentPage + 1)}>
-                          Next
-                        </button>
-                      </li>
-                    )}
+                    <li className="page-item">
+                      <button
+                        className="page-link"
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage == 1}
+                      >
+                        Prev
+                      </button>
+                    </li>
+                    {getPaginationSequence()}
+
+                    <li className="page-item">
+                      <button
+                        className="page-link"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage == totalPages}
+                      >
+                        Next
+                      </button>
+                    </li>
                   </ul>
                 </nav>
                 <span className="ms-2"> {totalPages} pages</span>
