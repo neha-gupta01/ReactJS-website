@@ -3,121 +3,6 @@ import { Link } from "react-router-dom";
 import PortfolioMenu from "./portfolioMenu";
 import { CartContext } from "../contexts/cartContext";
 
-// const portfolioData = [
-// {
-// id: 1,
-// imageSrc: "images/e-commerce.png",
-// title: "E-commerce Website",
-// description: "HTML/CSS/JavaScript",
-// price: 59,
-// technologies: ["HTML", "CSS", "Javascript"],
-// },
-// {
-// id: 2,
-// imageSrc: "images/landing-page.jpg",
-// title: "Landing Page",
-// description: "HTML/CSS/Bootstrap",
-// price: 12,
-// technologies: ["HTML", "CSS", "Bootstrap"],
-// },
-// {
-// id: 3,
-// imageSrc: "images/calculator-app.jpg",
-// title: "Calculator App",
-// description: "HTML/CSS/Javascript",
-// price: 46,
-// technologies: ["HTML", "CSS", "Javascript"],
-// },
-// {
-// id: 4,
-// imageSrc: "images/blog.jpg",
-// title: "Blog Website",
-// description: "HTML/CSS/PHP",
-// price: 40,
-// technologies: ["HTML", "CSS", "PHP"],
-// },
-// {
-// id: 5,
-// imageSrc: "images/task.jpg",
-// title: "Task Management App",
-// description: "ReactJS",
-// price: 25,
-// technologies: ["ReactJS"],
-// },
-// {
-// id: 6,
-// imageSrc: "images/data.jpg",
-// title: "Data Visualization",
-// description: "Python/Plotly",
-// price: 20,
-// technologies: ["Python", "Plotly"],
-// },
-// {
-// id: 7,
-// imageSrc: "images/data.jpg",
-// title: "Data Visualization",
-// description: "Python/Plotly",
-// price: 27,
-// technologies: ["Python", "Plotly"],
-// },
-// {
-// id: 8,
-// imageSrc: "images/data.jpg",
-// title: "Data Visualization",
-// description: "Python/Plotly",
-// price: 62,
-// technologies: ["Python", "Plotly"],
-// },
-// {
-// id: 9,
-// imageSrc: "images/data.jpg",
-// title: "Data Visualization",
-// description: "Python/Plotly",
-// price: 14,
-// technologies: ["Python", "Plotly"],
-// },
-// {
-// id: 10,
-// imageSrc: "images/data.jpg",
-// title: "Data Visualization",
-// description: "Python/Plotly",
-// price: 50,
-// technologies: ["Python", "Plotly"],
-// },
-// {
-// id: 11,
-// imageSrc: "images/data.jpg",
-// title: "Data Visualization",
-// description: "Python/Plotly",
-// price: 55,
-// technologies: ["Python", "Plotly"],
-// },
-// {
-// id: 12,
-// imageSrc: "images/data.jpg",
-// title: "Data Visualization",
-// description: "Python/Plotly",
-// price: 5,
-// technologies: ["Python", "Plotly"],
-// },
-// {
-// id: 13,
-// imageSrc: "images/data.jpg",
-// title: "Data Visualization",
-// description: "Python/Plotly",
-// price: 19,
-// technologies: ["Python", "Plotly"],
-// },
-// {
-// id: 14,
-// imageSrc: "images/data.jpg",
-// title: "Data Visualization",
-// description: "Python/Plotly",
-// price: 7,
-// technologies: ["Python", "Plotly"],
-// },
-// ];
-
 const SinglePortfolio = ({
   id,
   imageSrc,
@@ -179,19 +64,22 @@ const SinglePortfolio = ({
 
 const Portfolio = ({ showAll }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [portfolioList, setPortfolioList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { handleAddToCart, cartItems, handleUpdateQuantity } =
     React.useContext(CartContext);
 
   useEffect(() => {
     fetchPortfolioData();
-  }, []);
-
+  }, [itemsPerPage]);
+  useEffect(() => {
+    fetchPortfolioData();
+  }, [currentPage]);
   const fetchPortfolioData = () => {
+    setLoading(true);
     fetch(
       `http://localhost:3001/portfolio?current_page=${currentPage}&page_size=${itemsPerPage}`
     )
@@ -204,61 +92,43 @@ const Portfolio = ({ showAll }) => {
         console.log("Error fetching data:", error);
       })
       .finally(() => {
-        // setLoading(false);
+        setLoading(false);
       });
   };
 
   useEffect(() => {
-    setLoading(true)
-    fetchPortfolioData();
-  }, [currentPage]);
-
-  useEffect(() => {
-    if (currentPage == 1) {
+    if (currentPage === 1) {
       fetchPortfolioData();
     } else {
       setCurrentPage(1);
     }
   }, [itemsPerPage]);
 
-  const onFilterChange = (
-    searchTitle,
-    selectedTechnologies,
-    minPrice,
-    maxPrice,
-    sortBy
-  ) => {
-    // let filteredResult = [];
-    // filteredResult = portfolioData.filter((item) => {
-    //   if (
-    //     searchTitle &&
-    //     !item.title.toLowerCase().includes(searchTitle.toLowerCase())
-    //   ) {
-    //     return false;
-    //   }
-    //   const commonTechnologies = item.technologies.filter((tech) =>
-    //     selectedTechnologies.includes(tech)
-    //   );
-    //   if (selectedTechnologies.length !== commonTechnologies.length) {
-    //     return false;
-    //   }
-    //   if (minPrice && item.price < parseInt(minPrice)) {
-    //     return false;
-    //   }
-    //   if (maxPrice && item.price > parseInt(maxPrice)) {
-    //     return false;
-    //   }
-    //   return true;
-    // });
-    // if (sortBy === "lowToHigh") {
-    //   filteredResult.sort((a, b) => a.price - b.price);
-    // } else if (sortBy === "highToLow") {
-    //   filteredResult.sort((a, b) => b.price - a.price);
-    // }
-    // setFilteredData(filteredResult);
-    // setTotalPages(Math.ceil(filteredResult.length / itemsPerPage));
-    // setCurrentPage(1);
-  };
+  // const onFilterChange = (
+  //   searchTitle,
+  //   selectedTechnologies,
+  //   minPrice,
+  //   maxPrice,
+  //   sortBy
+  // ) => {
+  //   setCurrentPage(1);
+  //   const encodedTitle = encodeURIComponent(searchTitle);
+  //   const encodedTechnologies = selectedTechnologies.join(",");
+  //   fetch(
+  //     `http://localhost:3001/portfolio?current_page=1&page_size=${itemsPerPage}&searchTitle=${encodedTitle}&selectedTechnologies=${encodedTechnologies}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       setPortfolioList(response.data || []);
+  //       setTotalPages(response?.paginate?.total_page || 0);
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error fetching data:", error);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // };
 
   const title = (
     <div className="row mt-4 py-3">
@@ -326,17 +196,21 @@ const Portfolio = ({ showAll }) => {
             "Loading......"
           ) : (
             <div className="row mt-5 mx-0 justify-content-center align-items-center">
-              {portfolioList.length ? portfolioList.map((item, index) => (
-                <SinglePortfolio
-                  key={index}
-                  id={item.id}
-                  imageSrc={item.imageSrc}
-                  title={item.title}
-                  description={item.description}
-                  price={item.price}
-                  onAddToCart={handleAddToCart}
-                />
-              )) : "No Data"}
+              {portfolioList.length ? (
+                portfolioList.map((item, index) => (
+                  <SinglePortfolio
+                    key={index}
+                    id={item.id}
+                    imageSrc={item.imageSrc}
+                    title={item.title}
+                    description={item.description}
+                    price={item.price}
+                    onAddToCart={handleAddToCart}
+                  />
+                ))
+              ) : (
+                <p>No Portfolio available.</p>
+              )}
             </div>
           )}
 
@@ -371,7 +245,7 @@ const Portfolio = ({ showAll }) => {
                       <button
                         className="page-link"
                         onClick={() => setCurrentPage(currentPage - 1)}
-                        disabled={currentPage == 1}
+                        disabled={currentPage === 1}
                       >
                         Prev
                       </button>
@@ -382,7 +256,7 @@ const Portfolio = ({ showAll }) => {
                       <button
                         className="page-link"
                         onClick={() => setCurrentPage(currentPage + 1)}
-                        disabled={currentPage == totalPages}
+                        disabled={currentPage === totalPages}
                       >
                         Next
                       </button>
