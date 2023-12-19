@@ -81,13 +81,27 @@ const Portfolio = ({ showAll }) => {
 
   const fetchPortfolioData = (filterData) => {
     setLoading(true);
-    let apiUrl = `http://localhost:3001/portfolio?current_page=${currentPage}&page_size=${itemsPerPage}`
+    let url = `http://localhost:3001/portfolio?current_page=${currentPage}&page_size=${itemsPerPage}`
       
     if(filterData){
       const {searchTitle,selectedTechnologies,minPrice,maxPrice,sortBy,} = filterData;
-      apiUrl = apiUrl + `&searchTitle=${searchTitle}&selectedTechnologies=${selectedTechnologies}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}`
+      if(searchTitle){
+        url = url + `&searchTitle=${searchTitle}`
+      }
+      if(selectedTechnologies && selectedTechnologies.length > 0){
+        url = url + `&selectedTechnologies=${selectedTechnologies.join(",")}`
+      }
+      if(minPrice){
+        url = url +`&minPrice=${minPrice}`
+      }
+      if(maxPrice){
+        url = url +`&maxPrice=${maxPrice}`
+      }
+      if(sortBy){
+        url = url +`sortBy=${sortBy}`
+      }
     }
-    fetch(apiUrl)
+    fetch(url)
     .then((response) => response.json())
       .then((response) => {
         setPortfolioList(response.data || []);
@@ -99,20 +113,6 @@ const Portfolio = ({ showAll }) => {
       .finally(() => {
         setLoading(false);
       });
-    // fetch(
-    //   `http://localhost:3001/portfolio?current_page=${currentPage}&page_size=${itemsPerPage}`
-    // )
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     setPortfolioList(response.data || []);
-    //     setTotalPages(response?.paginate?.total_page || 0);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error fetching data:", error);
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
   };
 
   useEffect(() => {
@@ -139,20 +139,6 @@ const Portfolio = ({ showAll }) => {
     sortBy,
     };
     fetchPortfolioData(filterData)
-    // fetch(
-    //   `http://localhost:3001/portfolio?current_page=1&page_size=${itemsPerPage}&searchTitle=${searchTitle}&selectedTechnologies=${selectedTechnologies}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}`
-    // )
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     setPortfolioList(response.data || []);
-    //     setTotalPages(response?.paginate?.total_page || 0);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error fetching data:", error);
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
   };
 
   const title = (
