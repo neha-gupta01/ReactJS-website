@@ -113,13 +113,13 @@ const Portfolio = ({ showAll }) => {
       });
   };
 
-  // useEffect(() => {
-  //   if (currentPage === 1) {
-  //     fetchPortfolioData();
-  //   } else {
-  //     setCurrentPage(1);
-  //   }
-  // }, [itemsPerPage]);
+  useEffect(() => {
+    if (currentPage === 1) {
+      fetchPortfolioData();
+    } else {
+      setCurrentPage(1);
+    }
+  }, [itemsPerPage]);
 
   const onFilterChange = (
     searchTitle,
