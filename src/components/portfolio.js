@@ -74,35 +74,33 @@ const Portfolio = ({ showAll }) => {
 
   useEffect(() => {
     fetchPortfolioData();
-  }, [itemsPerPage]);
-  useEffect(() => {
-    fetchPortfolioData();
-  }, [currentPage]);
+  }, [itemsPerPage, currentPage]);
 
   const fetchPortfolioData = (filterData) => {
     setLoading(true);
-    let url = `http://localhost:3001/portfolio?current_page=${currentPage}&page_size=${itemsPerPage}`
-      
-    if(filterData){
-      const {searchTitle,selectedTechnologies,minPrice,maxPrice,sortBy,} = filterData;
-      if(searchTitle){
-        url = url + `&searchTitle=${searchTitle}`
+    let url = `http://localhost:3001/portfolio?current_page=${currentPage}&page_size=${itemsPerPage}`;
+
+    if (filterData) {
+      const { searchTitle, selectedTechnologies, minPrice, maxPrice, sortBy } =
+        filterData;
+      if (searchTitle) {
+        url = url + `&searchTitle=${searchTitle}`;
       }
-      if(selectedTechnologies && selectedTechnologies.length > 0){
-        url = url + `&selectedTechnologies=${selectedTechnologies.join(",")}`
+      if (selectedTechnologies && selectedTechnologies.length > 0) {
+        url = url + `&selectedTechnologies=${selectedTechnologies.join(",")}`;
       }
-      if(minPrice){
-        url = url +`&minPrice=${minPrice}`
+      if (minPrice) {
+        url = url + `&minPrice=${minPrice}`;
       }
-      if(maxPrice){
-        url = url +`&maxPrice=${maxPrice}`
+      if (maxPrice) {
+        url = url + `&maxPrice=${maxPrice}`;
       }
-      if(sortBy){
-        url = url +`sortBy=${sortBy}`
+      if (sortBy) {
+        url = url + `&sortBy=${sortBy}`;
       }
     }
     fetch(url)
-    .then((response) => response.json())
+      .then((response) => response.json())
       .then((response) => {
         setPortfolioList(response.data || []);
         setTotalPages(response?.paginate?.total_page || 0);
@@ -115,13 +113,13 @@ const Portfolio = ({ showAll }) => {
       });
   };
 
-  useEffect(() => {
-    if (currentPage === 1) {
-      fetchPortfolioData();
-    } else {
-      setCurrentPage(1);
-    }
-  }, [itemsPerPage]);
+  // useEffect(() => {
+  //   if (currentPage === 1) {
+  //     fetchPortfolioData();
+  //   } else {
+  //     setCurrentPage(1);
+  //   }
+  // }, [itemsPerPage]);
 
   const onFilterChange = (
     searchTitle,
@@ -132,13 +130,13 @@ const Portfolio = ({ showAll }) => {
   ) => {
     setCurrentPage(1);
     const filterData = {
-    searchTitle,
-    selectedTechnologies,
-    minPrice,
-    maxPrice,
-    sortBy,
+      searchTitle,
+      selectedTechnologies,
+      minPrice,
+      maxPrice,
+      sortBy,
     };
-    fetchPortfolioData(filterData)
+    fetchPortfolioData(filterData);
   };
 
   const title = (
