@@ -1,5 +1,5 @@
-// Skills.js
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const SingleSkill = ({ icon, skill, description }) => {
   return (
@@ -18,17 +18,17 @@ const SingleSkill = ({ icon, skill, description }) => {
 const Skills = () => {
   const [skillsData, setSkillsData] = useState([]);
 
-  useEffect(() => {
-    const fetchSkillsData = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/skills");
-        console.log(response);
-        const data = await response.json();
-        setSkillsData(data);
-      } catch (error) {
+  const fetchSkillsData = () => {
+    axios
+      .get("http://localhost:3001/skills")
+      .then((response) => {
+        setSkillsData(response.data);
+      })
+      .catch((error) => {
         console.log("Error fetching data:", error);
-      }
-    };
+      });
+  };
+  useEffect(() => {
     fetchSkillsData();
   }, []);
 

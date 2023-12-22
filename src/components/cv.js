@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const Cv = () => {
   const [cvData, setCvData] = useState([]);
 
-  useEffect(() => {
-    const fetchCvData = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/cv");
-        console.log(response);
-        const data = await response.json();
-        console.log(data);
-        setCvData(data);
-      } catch (error) {
+  const fetchCvData = () => {
+    axios
+      .get("http://localhost:3001/cv")
+      .then((response) => {
+        setCvData(response.data);
+      })
+      .catch((error) => {
         console.log("Error fetching data:", error);
-      }
-    };
+      });
+  };
+  useEffect(() => {
     fetchCvData();
   }, []);
 
@@ -103,9 +103,9 @@ const Cv = () => {
           <h3>Education</h3>
           <hr />
           <dl>
-            <dt>{cvData.eduction?.year}</dt>
-            <dd>{cvData.eduction?.institute}</dd>
-            <dd>{cvData.eduction?.degree}</dd>
+            <dt>{cvData.education?.year}</dt>
+            <dd>{cvData.education?.institute}</dd>
+            <dd>{cvData.education?.degree}</dd>
           </dl>
           <h3>Additional Courses & Training</h3>
           <hr />

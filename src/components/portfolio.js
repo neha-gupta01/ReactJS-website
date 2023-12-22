@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PortfolioMenu from "./portfolioMenu";
 import { CartContext } from "../contexts/cartContext";
+import axios from "axios";
 
 const SinglePortfolio = ({
   id,
@@ -99,11 +100,11 @@ const Portfolio = ({ showAll }) => {
         url = url + `&sortBy=${sortBy}`;
       }
     }
-    fetch(url)
-      .then((response) => response.json())
+    axios
+      .get(url)
       .then((response) => {
         setPortfolioList(response.data || []);
-        setTotalPages(response?.paginate?.total_page || 0);
+        setTotalPages(response.data?.paginate?.total_page || 0);
       })
       .catch((error) => {
         console.log("Error fetching data:", error);
