@@ -69,41 +69,45 @@ const Portfolio = ({ showAll }) => {
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [portfolioList, setPortfolioList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filterData, setFilterData] = useState({
+    searchTitle: "",
+    selectedTechnologies: [],
+    minPrice: 0,
+    maxPrice: 100,
+    sortBy: "",
+  });
 
   const { handleAddToCart, cartItems, handleUpdateQuantity } =
     React.useContext(CartContext);
 
   useEffect(() => {
     fetchPortfolioData();
-  }, [itemsPerPage, currentPage]);
+  }, [itemsPerPage, currentPage, filterData]);
 
-  const fetchPortfolioData = (filterData) => {
+  const fetchPortfolioData = () => {
     setLoading(true);
     let url = `http://localhost:3001/portfolio?current_page=${currentPage}&page_size=${itemsPerPage}`;
 
-    if (filterData) {
-      const { searchTitle, selectedTechnologies, minPrice, maxPrice, sortBy } =
-        filterData;
-      if (searchTitle) {
-        url = url + `&searchTitle=${searchTitle}`;
-      }
-      if (selectedTechnologies && selectedTechnologies.length > 0) {
-        url = url + `&selectedTechnologies=${selectedTechnologies.join(",")}`;
-      }
-      if (minPrice) {
-        url = url + `&minPrice=${minPrice}`;
-      }
-      if (maxPrice) {
-        url = url + `&maxPrice=${maxPrice}`;
-      }
-      if (sortBy) {
-        url = url + `&sortBy=${sortBy}`;
-      }
+    if (filterData.searchTitle) {
+      url = url + `&searchTitle=${filterData.searchTitle}`;
+    }
+    if (filterData.selectedTechnologies.length > 0) {
+      url =
+        url +
+        `&selectedTechnologies=${filterData.selectedTechnologies.join(",")}`;
+    }
+    if (filterData.minPrice) {
+      url = url + `&minPrice=${filterData.minPrice}`;
+    }
+    if (filterData.maxPrice) {
+      url = url + `&maxPrice=${filterData.maxPrice}`;
+    }
+    if (filterData.sortBy) {
+      url = url + `&sortBy=${filterData.sortBy}`;
     }
     axios
       .get(url)
       .then((response) => {
-        console.log(response);
         setPortfolioList(response.data.data || []);
         setTotalPages(response.data?.paginate?.total_page || 0);
       })
@@ -131,14 +135,14 @@ const Portfolio = ({ showAll }) => {
     sortBy
   ) => {
     setCurrentPage(1);
-    const filterData = {
+    const newFilterData = {
       searchTitle,
       selectedTechnologies,
       minPrice,
       maxPrice,
       sortBy,
     };
-    fetchPortfolioData(filterData);
+    setFilterData(newFilterData);
   };
 
   const title = (
@@ -237,16 +241,19 @@ const Portfolio = ({ showAll }) => {
           ) : null}
           {showAll && (
             <div className="row mt-3">
-              <div className="col-12 d-flex align-items-center justify-content-end">
+              <div className="d-flex align-items-center justify-content-end">
                 <label className="me-2">Items:</label>
-                <input
-                  type="number"
-                  min="1"
-                  className="form-control me-2"
+                <select
+                  className="form-select me-2"
+                  style={{ width: "80px" }}
                   value={itemsPerPage}
-                  style={{ width: "60px" }}
                   onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                />
+                >
+                  <option value="4">4</option>
+                  <option value="8">8</option>
+                  <option value="12">12</option>
+                  <option value="16">16</option>
+                </select>
                 <nav
                   aria-label="Page navigation"
                   className="d-flex align-items-center"
