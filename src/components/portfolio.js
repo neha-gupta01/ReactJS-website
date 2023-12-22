@@ -103,7 +103,8 @@ const Portfolio = ({ showAll }) => {
     axios
       .get(url)
       .then((response) => {
-        setPortfolioList(response.data || []);
+        console.log(response);
+        setPortfolioList(response.data.data || []);
         setTotalPages(response.data?.paginate?.total_page || 0);
       })
       .catch((error) => {
