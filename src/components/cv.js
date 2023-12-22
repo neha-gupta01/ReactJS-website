@@ -8,7 +8,7 @@ const Cv = () => {
     axios
       .get("http://localhost:3001/cv")
       .then((response) => {
-        setCvData(response.data);
+        setCvData(response.data[0]);
       })
       .catch((error) => {
         console.log("Error fetching data:", error);
