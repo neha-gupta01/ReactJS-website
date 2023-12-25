@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../contexts/cartContext";
 
 const Navbar = ({ toggleCart, showCart, cartItemsCount }) => {
   return (
