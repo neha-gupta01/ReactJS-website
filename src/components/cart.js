@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../contexts/cartContext";
@@ -24,6 +25,26 @@ const Cart = () => {
     };
   }, [showCart, toggleCart]);
 
+  const placeOrder = () => {
+    const orderData = {
+      items: Object.values(cartItems).map((item) => ({
+        productId: item.id,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      totalPrice: cartItemsTotalPrice,
+    };
+    console.log(orderData)
+
+    axios
+      .post("http://localhost:3001/orders", orderData)
+      .then((response) => {
+        console.log("Order placed successfully", response.data);
+      })
+      .catch((error) => {
+        console.log("Error placing order", error);
+      });
+  };
   return (
     <section className={`cart-box ${showCart ? "open" : ""}`} id="cart-box">
       <div className="container py-5">
@@ -33,7 +54,7 @@ const Cart = () => {
               X
             </button>
           </div>
-          <div className="col-12 d-flex flex-column text-center">
+          <div className="d-flex flex-column text-center">
             <h2>CART</h2>
             <h5 className="text-secondary fw-normal py-2 fst-italic">
               {cartItemsCount} item(s) in Cart
@@ -42,12 +63,9 @@ const Cart = () => {
         </div>
 
         <div className="row justify-content-center">
-          <div className="card w-75">
-            <div className="card-header">
-              <h2>Shopping Cart</h2>
-            </div>
+          <div className="card">
             {cartItemsCount === 0 ? (
-              <div className=" cart-empty text-center p-5">
+              <div className="cart-empty text-center p-5">
                 <i
                   className="fa-solid fa-cart-shopping text-muted"
                   style={{ fontSize: "2rem" }}
@@ -147,8 +165,12 @@ const Cart = () => {
                   </div>
                 </div>
 
-                <div className="d-flex justify-content-end m-0">
-                  <button type="button" className="btn btn-primary m-2">
+                <div className="d-flex justify-content-end">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={placeOrder}
+                  >
                     Place order
                   </button>
                 </div>

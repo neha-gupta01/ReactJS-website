@@ -135,6 +135,7 @@ hr {
 
 .cart-box {
   position: fixed;
+  overflow: scroll;
   right: -100%;
   width: 80%;
   height: 100%;
