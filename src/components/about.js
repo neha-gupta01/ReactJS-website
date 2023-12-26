@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 const SingleAbout = ({ year, title, description, image, alignRight }) => {
   const profileImage = (
@@ -35,17 +34,17 @@ const SingleAbout = ({ year, title, description, image, alignRight }) => {
 const About = () => {
   const [aboutData, setAboutData] = useState([]);
 
-  const fetchAboutData = () => {
-    axios
-      .get("http://localhost:3001/about")
-      .then((response) => {
-        setAboutData(response.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching data:", error);
-      });
-  };
   useEffect(() => {
+    const fetchAboutData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/about");
+        console.log(response);
+        const data = await response.json();
+        setAboutData(data);
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    };
     fetchAboutData();
   }, []);
 
