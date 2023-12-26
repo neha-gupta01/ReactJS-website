@@ -62,6 +62,16 @@ const Navbar = () => {
                     ) : null}
                   </button>
                 </li>
+                <li className="nav-item mx-2">
+                  <Link className="nav-link" to="/signUp">
+                    Sign Up
+                  </Link>
+                </li>
+                <li className="nav-item mx-2">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

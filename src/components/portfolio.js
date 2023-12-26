@@ -240,7 +240,7 @@ const Portfolio = ({ showAll }) => {
             </div>
           ) : null}
           {showAll && (
-            <div className="row mt-3">
+            <div className="row mt-3 mb-5">
               <div className="d-flex align-items-center justify-content-end">
                 <label className="me-2">Items:</label>
                 <select

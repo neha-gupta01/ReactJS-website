@@ -4,6 +4,8 @@ import PortfolioContainer from "./containers/PortfolioContainer";
 import MainContainer from "./containers/MainContainer";
 import AboutContainer from "./containers/AboutContainer";
 import CvContainer from "./containers/CvContainer";
+import SignUpContainer from "./containers/SignUpContainer";
+import LoginContainer from "./containers/LoginContainer";
 import { CartProvider } from "./contexts/cartContext";
 
 const AppRoutes = () => {
@@ -15,6 +17,8 @@ const AppRoutes = () => {
           <Route path="/about" element={<AboutContainer />} />
           <Route path="/cv" element={<CvContainer />} />
           <Route path="/" element={<MainContainer />} />
+          <Route path="/signUp" element={<SignUpContainer />} />
+          <Route path="/login" element={<LoginContainer />} />
         </Routes>
       </Router>
     </CartProvider>
