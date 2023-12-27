@@ -30,11 +30,10 @@ const Cart = () => {
       items: Object.values(cartItems).map((item) => ({
         productId: item.id,
         quantity: item.quantity,
-        price: item.price,
+        price: item.price * item.quantity,
       })),
       totalPrice: cartItemsTotalPrice,
     };
-    console.log(orderData)
 
     axios
       .post("http://localhost:3001/orders", orderData)

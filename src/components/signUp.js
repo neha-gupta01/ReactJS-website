@@ -26,7 +26,6 @@ const SignUp = () => {
       })
       .then((response) => {
         alert("Sign up completed");
-        console.log(response.data)
         console.log("Form Details:", response.data);
       })
       .catch((error) => {
@@ -38,7 +37,7 @@ const SignUp = () => {
   return (
     <div className="container mt-5 signup-box" id="signUp">
       <div className="row justify-content-center">
-        <div className="col-md-5 mt-5">
+        <div className="col-md-5 mt-5 mb-5">
           <div className="card">
             <div className="card-body">
               <h2 className="text-center">Sign Up</h2>

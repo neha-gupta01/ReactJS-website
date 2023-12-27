@@ -17,12 +17,14 @@ const Login = () => {
       })
       .then((response) => {
         alert("Login completed");
-        console.log(response.data)
         console.log("Login Details:", response.data);
+
+        localStorage.setItem("token", response.data.result.token);
+        
       })
       .catch((error) => {
         console.error("Error during login:", error);
-        alert("Invalid credentials. Please try again.");
+        alert("Error during login. Please try again.");
       });
   };
 
