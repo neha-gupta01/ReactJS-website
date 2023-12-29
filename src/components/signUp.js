@@ -7,9 +7,22 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setProfileImage(file);
+  };
 
   const handleSignUp = () => {
-    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+    if (
+      //!profileImage ||
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !confirmPassword
+    ) {
       alert("Please fill all details!");
       return;
     }
@@ -17,12 +30,22 @@ const SignUp = () => {
       alert("Confirm Password");
       return;
     }
+    // const formData = new FormData();
+    //     formData.append("firstName", firstName);
+    //     formData.append("lastName", lastName);
+    //     formData.append("email", email);
+    //     formData.append("password", password);
+    //     formData.append("confirmPassword", confirmPassword);
+    //     formData.append("profileImage", profileImage);
+
     axios
       .post("http://localhost:3001/signup", {
+        // profileImage,
         firstName,
         lastName,
         email,
         password,
+        confirmPassword,
       })
       .then((response) => {
         alert("Sign up completed");
@@ -34,6 +57,8 @@ const SignUp = () => {
       });
   };
 
+  //pop-up
+
   return (
     <div className="container mt-5 signup-box" id="signUp">
       <div className="row justify-content-center">
@@ -41,7 +66,19 @@ const SignUp = () => {
           <div className="card">
             <div className="card-body">
               <h2 className="text-center">Sign Up</h2>
-              <form>
+              <form encType="">
+                <div className="mb-2">
+                  <label htmlFor="profileImage" className="form-label">
+                    Profile Image
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="profileImage"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
+                </div>
                 <div className="mb-2">
                   <label htmlFor="firstName" className="form-label">
                     First Name
