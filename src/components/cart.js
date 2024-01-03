@@ -49,9 +49,7 @@ const Cart = () => {
       <div className="container py-5">
         <div className="row mt-4 py-3">
           <div>
-            <button className="btn btn-dark" onClick={toggleCart}>
-              X
-            </button>
+            <button className=" btn-close" onClick={toggleCart}></button>
           </div>
           <div className="d-flex flex-column text-center">
             <h2>CART</h2>

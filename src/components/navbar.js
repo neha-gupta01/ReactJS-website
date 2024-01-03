@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../contexts/cartContext";
+import { UserContext } from "../contexts/userContext";
+import SignUpModal from "../auth/SignUpModal";
+import LoginModal from "../auth/LoginModal";
+import MyProfile from "./myProfile";
 
 const Navbar = () => {
-  const { toggleCart, cartItemsCount } = React.useContext(CartContext);
+  const { toggleCart, cartItemsCount } = useContext(CartContext);
+  const { userData, handleLogout, userLogin } = useContext(UserContext);
+
+  const [showSignUp, setShowSignUp] = React.useState(false);
+  const [showLogin, setShowLogin] = React.useState(false);
+  const [showProfile, setShowProfile] = React.useState(false);
+
+  const handleSignUpClose = () => setShowSignUp(false);
+  const handleSignUpShow = () => setShowSignUp(true);
+
+  const handleLoginClose = () => setShowLogin(false);
+  const handleLoginShow = () => setShowLogin(true);
+
+  const handleProfileShow = () => setShowProfile(!showProfile);
 
   return (
     <React.Fragment>
@@ -63,20 +80,48 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li className="nav-item mx-2">
-                  <Link className="nav-link" to="/signUp">
+                  <button className="btn btn-light" onClick={handleSignUpShow}>
                     Sign Up
-                  </Link>
+                  </button>
                 </li>
                 <li className="nav-item mx-2">
-                  <Link className="nav-link" to="/login">
-                    Login
-                  </Link>
+                  {userData ? (
+                    <React.Fragment>
+                      <button
+                        className="btn btn-light"
+                        onClick={handleProfileShow}
+                      >
+                        My Profile
+                      </button>
+                      <span className="text-light me-2">
+                        Hello, {userData.firstName}!
+                      </span>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </React.Fragment>
+                  ) : (
+                    <button
+                      className="btn btn-secondary"
+                      onClick={handleLoginShow}
+                    >
+                      Login
+                    </button>
+                  )}
                 </li>
               </ul>
             </div>
           </div>
         </nav>
       </header>
+      {/* SignUp Modal */}
+      <SignUpModal show={showSignUp} handleClose={handleSignUpClose} />
+
+      {/* Login Modal */}
+      <LoginModal show={showLogin} handleClose={handleLoginClose} />
     </React.Fragment>
   );
 };

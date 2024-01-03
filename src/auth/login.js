@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "../contexts/userContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { userData, handleLogout, userLogin } = useContext(UserContext);
 
   const handleLogin = () => {
     if (!email || !password) {
@@ -20,7 +23,8 @@ const Login = () => {
         console.log("Login Details:", response.data);
 
         localStorage.setItem("token", response.data.result.token);
-        
+
+        userLogin(response.data.result.user);
       })
       .catch((error) => {
         console.error("Error during login:", error);
@@ -29,12 +33,11 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-5 login-box" id="login">
-      <div className="row justify-content-center m-auto">
-        <div className="col-md-5 mt-5">
-          <div className="card mt-5">
-            <div className="card-body mt-2">
-              <h2 className="text-center">Login</h2>
+    <div className=" login-box" id="login">
+      <div className="">
+        <div className="">
+          <div className="">
+            <div className=" mt-2">
               <form>
                 <div className="mb-2">
                   <label htmlFor="email" className="form-label">

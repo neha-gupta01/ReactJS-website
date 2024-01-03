@@ -15,14 +15,7 @@ const SignUp = () => {
   };
 
   const handleSignUp = () => {
-    if (
-      //!profileImage ||
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !confirmPassword
-    ) {
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
       alert("Please fill all details!");
       return;
     }
@@ -30,13 +23,6 @@ const SignUp = () => {
       alert("Confirm Password");
       return;
     }
-    // const formData = new FormData();
-    //     formData.append("firstName", firstName);
-    //     formData.append("lastName", lastName);
-    //     formData.append("email", email);
-    //     formData.append("password", password);
-    //     formData.append("confirmPassword", confirmPassword);
-    //     formData.append("profileImage", profileImage);
 
     axios
       .post("http://localhost:3001/signup", {
@@ -57,15 +43,12 @@ const SignUp = () => {
       });
   };
 
-  //pop-up
-
   return (
-    <div className="container mt-5 signup-box" id="signUp">
-      <div className="row justify-content-center">
-        <div className="col-md-5 mt-5 mb-5">
-          <div className="card">
-            <div className="card-body">
-              <h2 className="text-center">Sign Up</h2>
+    <div className="signup-box" id="signUp">
+      <div className="">
+        <div className="">
+          <div className="">
+            <div className="">
               <form encType="">
                 <div className="mb-2">
                   <label htmlFor="profileImage" className="form-label">
