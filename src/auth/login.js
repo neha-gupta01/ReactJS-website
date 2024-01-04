@@ -6,7 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { userData, handleLogout, userLogin } = useContext(UserContext);
+  const { userData, handleLogout, handleSuccessfulLogin } = useContext(UserContext);
 
   const handleLogin = () => {
     if (!email || !password) {
@@ -24,7 +24,7 @@ const Login = () => {
 
         localStorage.setItem("token", response.data.result.token);
 
-        console.log(response.data.result);
+        handleSuccessfulLogin(response.data.result.data);
       })
       .catch((error) => {
         console.error("Error during login:", error);

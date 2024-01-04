@@ -6,8 +6,9 @@ export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const userLogin = (data) => {
+  const handleSuccessfulLogin = (data) => {
     setUserData(data);
+    console.log(data);
     setIsLoggedIn(true);
   };
 
@@ -20,7 +21,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         userData,
-        userLogin,
+        handleSuccessfulLogin,
         handleLogout,
         isLoggedIn,
       }}
