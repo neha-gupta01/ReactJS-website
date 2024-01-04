@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../contexts/cartContext";
 import { UserContext } from "../contexts/userContext";
@@ -8,11 +8,11 @@ import MyProfile from "./myProfile";
 
 const Navbar = () => {
   const { toggleCart, cartItemsCount } = useContext(CartContext);
-  const { userData, handleLogout, userLogin } = useContext(UserContext);
+  const { userData, handleLogout, isLoggedIn } = useContext(UserContext);
 
-  const [showSignUp, setShowSignUp] = React.useState(false);
-  const [showLogin, setShowLogin] = React.useState(false);
-  const [showProfile, setShowProfile] = React.useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   const handleSignUpClose = () => setShowSignUp(false);
   const handleSignUpShow = () => setShowSignUp(true);
@@ -85,17 +85,14 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li className="nav-item mx-2">
-                  {userData ? (
+                  {isLoggedIn ? (
                     <React.Fragment>
                       <button
                         className="btn btn-light"
                         onClick={handleProfileShow}
                       >
-                        My Profile
-                      </button>
-                      <span className="text-light me-2">
                         Hello, {userData.firstName}!
-                      </span>
+                      </button>
                       <button
                         className="btn btn-secondary"
                         onClick={handleLogout}

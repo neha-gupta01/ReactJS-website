@@ -24,7 +24,7 @@ const Login = () => {
 
         localStorage.setItem("token", response.data.result.token);
 
-        userLogin(response.data.result.user);
+        console.log(response.data.result);
       })
       .catch((error) => {
         console.error("Error during login:", error);
@@ -33,53 +33,44 @@ const Login = () => {
   };
 
   return (
-    <div className=" login-box" id="login">
-      <div className="">
-        <div className="">
-          <div className="">
-            <div className=" mt-2">
-              <form>
-                <div className="mb-2">
-                  <label htmlFor="email" className="form-label">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-2">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="m-3 text-center">
-                  <button
-                    type="button"
-                    className="btn btn-primary px-4"
-                    onClick={handleLogin}
-                  >
-                    Login
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+    <div className="login-box mt-2" id="login">
+      <form>
+        <div className="mb-2">
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
-      </div>
+        <div className="mb-2">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="m-3 text-center">
+          <button
+            type="button"
+            className="btn btn-primary px-4"
+            onClick={handleLogin}
+          >
+            Login
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

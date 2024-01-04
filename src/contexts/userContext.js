@@ -3,16 +3,18 @@ import React, { createContext, useState } from "react";
 export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
-  const [userData, setUserData] = useState();
-  //useerdata ayega successful login hone ke baad
-  ///logout krne pe data remove localstorage clear
+  const [userData, setUserData] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const userLogin = (data) => {
     setUserData(data);
+    setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
     setUserData(null);
     localStorage.removeItem("token");
+    setIsLoggedIn(false);
   };
   return (
     <UserContext.Provider
@@ -20,6 +22,7 @@ export const UserProvider = ({ children }) => {
         userData,
         userLogin,
         handleLogout,
+        isLoggedIn,
       }}
     >
       {children}
