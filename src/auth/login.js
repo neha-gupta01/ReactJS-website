@@ -6,7 +6,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { userData, handleLogout, handleSuccessfulLogin } = useContext(UserContext);
+  const { userData, handleSuccessfulLogin, isLoggedIn } =
+    useContext(UserContext);
 
   const handleLogin = () => {
     if (!email || !password) {
@@ -19,12 +20,13 @@ const Login = () => {
         password,
       })
       .then((response) => {
-        alert("Login completed");
+        alert(response.data.result);
+
+        handleSuccessfulLogin(response.data.result.data);
+
         console.log("Login Details:", response.data);
 
         localStorage.setItem("token", response.data.result.token);
-
-        handleSuccessfulLogin(response.data.result.data);
       })
       .catch((error) => {
         console.error("Error during login:", error);

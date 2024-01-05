@@ -80,15 +80,10 @@ const Navbar = () => {
                   </button>
                 </li>
                 <li className="nav-item mx-2">
-                  <button className="btn btn-light" onClick={handleSignUpShow}>
-                    Sign Up
-                  </button>
-                </li>
-                <li className="nav-item mx-2">
                   {isLoggedIn ? (
                     <React.Fragment>
                       <button
-                        className="btn btn-light"
+                        className="btn btn-outline-light"
                         onClick={handleProfileShow}
                       >
                         Hello, {userData.firstName}!
@@ -101,13 +96,21 @@ const Navbar = () => {
                       </button>
                     </React.Fragment>
                   ) : (
-                    <button
-                      className="btn btn-secondary"
-                      onClick={handleLoginShow}
-                    >
-                      Login
-                    </button>
+                    <React.Fragment>
+                      <span className="text-light mx-2">Hello, Guest!!</span>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={handleLoginShow}
+                      >
+                        Login
+                      </button>
+                    </React.Fragment>
                   )}
+                </li>
+                <li className="nav-item mx-2">
+                  <button className="btn btn-light" onClick={handleSignUpShow}>
+                    Sign Up
+                  </button>
                 </li>
               </ul>
             </div>

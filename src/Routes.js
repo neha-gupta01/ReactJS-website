@@ -5,9 +5,11 @@ import MainContainer from "./containers/MainContainer";
 import AboutContainer from "./containers/AboutContainer";
 import CvContainer from "./containers/CvContainer";
 import { CartProvider } from "./contexts/cartContext";
+import { UserProvider } from "./contexts/userContext";
 
 const AppRoutes = () => {
   return (
+    <UserProvider>
     <CartProvider>
       <Router>
         <Routes>
@@ -18,6 +20,7 @@ const AppRoutes = () => {
         </Routes>
       </Router>
     </CartProvider>
+    </UserProvider>
   );
 };
 export default AppRoutes;

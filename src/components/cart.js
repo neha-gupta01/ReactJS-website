@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../contexts/cartContext";
-
+import { UserContext } from "../contexts/userContext";
 const Cart = () => {
   const {
     cartItems,
@@ -11,7 +11,10 @@ const Cart = () => {
     toggleCart,
     cartItemsCount,
     handleUpdateQuantity,
-  } = React.useContext(CartContext);
+  } = useContext(CartContext);
+
+  const { userData, handleSuccessfulLogin, isLoggedIn } =
+    useContext(UserContext);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -38,7 +41,13 @@ const Cart = () => {
     axios
       .post("http://localhost:3001/orders", orderData)
       .then((response) => {
-        console.log("Order placed successfully", response.data);
+        if (!isLoggedIn) {
+          alert("Login Please!");
+          return;
+        } else {
+          alert("Order Placed!")
+          console.log("Order placed successfully", response.data);
+        }
       })
       .catch((error) => {
         console.log("Error placing order", error);

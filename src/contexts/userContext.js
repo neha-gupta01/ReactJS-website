@@ -3,7 +3,7 @@ import React, { createContext, useState } from "react";
 export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSuccessfulLogin = (data) => {
@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const handleLogout = () => {
-    setUserData(null);
+    setUserData({});
     localStorage.removeItem("token");
     setIsLoggedIn(false);
   };
