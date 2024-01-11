@@ -1,32 +1,40 @@
 import axios from "axios";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../contexts/cartContext";
-import { UserContext } from "../contexts/userContext";
+//import { CartContext } from "../contexts/cartContext";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCart, updateQuantity } from "../redux/cartSlice";
+//import { UserContext } from "../contexts/userContext";
 const Cart = () => {
-  const {
-    cartItems,
-    cartItemsTotalPrice,
-    showCart,
-    toggleCart,
-    cartItemsCount,
-    handleUpdateQuantity,
-  } = useContext(CartContext);
-
-  const { userData, handleSuccessfulLogin, isLoggedIn } =
-    useContext(UserContext);
+  // const {
+  //   cartItems,
+  //   cartItemsTotalPrice,
+  //   showCart,
+  //   toggleCart,
+  //   cartItemsCount,
+  //   handleUpdateQuantity,
+  // } = useContext(CartContext);
+  const dispatch = useDispatch();
+  const { cartItems, cartItemsTotalPrice, showCart, cartItemsCount } =
+    useSelector((state) => state.cart);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const handleUpdateQuantity = (id, newQuantity) => {
+      dispatch(updateQuantity({ id, newQuantity }));
+    };
+  // const { userData, handleSuccessfulLogin, isLoggedIn } =
+  //   useContext(UserContext);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (showCart && !document.getElementById("cart-box").contains(e.target)) {
-        toggleCart();
+        dispatch(toggleCart());
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [showCart, toggleCart]);
+  }, [dispatch, showCart]);
 
   const placeOrder = () => {
     const orderData = {
@@ -45,7 +53,7 @@ const Cart = () => {
           alert("Login Please!");
           return;
         } else {
-          alert("Order Placed!")
+          alert("Order Placed!");
           console.log("Order placed successfully", response.data);
         }
       })

@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PortfolioMenu from "./portfolioMenu";
-import { CartContext } from "../contexts/cartContext";
+//import { CartContext } from "../contexts/cartContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, updateQuantity } from "../redux/cartSlice";
 import axios from "axios";
 
-const SinglePortfolio = ({
-  id,
-  imageSrc,
-  title,
-  description,
-  price,
-  onAddToCart,
-}) => {
-  const { cartItems, handleUpdateQuantity, handleAddToCart } =
-    React.useContext(CartContext);
+const SinglePortfolio = ({ id, imageSrc, title, description, price }) => {
+  // const { cartItems, handleUpdateQuantity, handleAddToCart } =
+  //   React.useContext(CartContext);
 
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart.cartItems);
   const isInCart = cartItems[id] !== undefined;
 
   const handleAddToCartClick = () => {
     const item = { id, imageSrc, title, description, price, quantity: 1 };
-    onAddToCart(item);
+    dispatch(addToCart({ item }));
   };
 
+  const handleUpdateQuantity = (id, newQuantity) => {
+    dispatch(updateQuantity({ id, newQuantity }));
+  };
   return (
     <div className="col-lg-3 px-md-4 px-0 col-md-3 col-sm-4 card-wrapper">
       <div className="card mt-4">
@@ -77,9 +77,10 @@ const Portfolio = ({ showAll }) => {
     sortBy: "",
   });
 
-  const { handleAddToCart, cartItems, handleUpdateQuantity } =
-    React.useContext(CartContext);
-
+  // const { handleAddToCart, cartItems, handleUpdateQuantity } =
+  //   React.useContext(CartContext);
+  // const dispatch = useDispatch();
+  // const { cartItems } = useSelector((state) => state.cart);
   useEffect(() => {
     fetchPortfolioData();
   }, [itemsPerPage, currentPage, filterData]);
@@ -220,7 +221,6 @@ const Portfolio = ({ showAll }) => {
                     title={item.title}
                     description={item.description}
                     price={item.price}
-                    onAddToCart={handleAddToCart}
                   />
                 ))
               ) : (

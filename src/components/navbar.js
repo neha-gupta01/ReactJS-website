@@ -1,14 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../contexts/cartContext";
-import { UserContext } from "../contexts/userContext";
+//import { CartContext } from "../contexts/cartContext";
+//import { UserContext } from "../contexts/userContext";
 import SignUpModal from "../auth/SignUpModal";
 import LoginModal from "../auth/LoginModal";
-import MyProfile from "./myProfile";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCart } from "../redux/cartSlice";
+import { handleLogout } from "../redux/userSlice";
 
 const Navbar = () => {
-  const { toggleCart, cartItemsCount } = useContext(CartContext);
-  const { userData, handleLogout, isLoggedIn } = useContext(UserContext);
+  //const { toggleCart, cartItemsCount } = useContext(CartContext);
+  //const { userData, handleLogout, isLoggedIn } = useContext(UserContext);
+
+  const dispatch = useDispatch();
+  const { cartItemsCount } = useSelector((state) => state.cart.cartItemsCount);
+  const userData = useSelector((state) => state.user.userData);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -21,6 +28,14 @@ const Navbar = () => {
   const handleLoginShow = () => setShowLogin(true);
 
   const handleProfileShow = () => setShowProfile(!showProfile);
+
+  const handleLogoutClick = () => {
+    dispatch(handleLogout());
+  };
+
+  const handleToggleClick = () => {
+    dispatch(toggleCart());
+  };
 
   return (
     <React.Fragment>
@@ -72,7 +87,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="nav-item mx-2">
-                  <button className="nav-link" onClick={toggleCart}>
+                  <button className="nav-link" onClick={handleToggleClick}>
                     <i className="fa-solid fa-cart-shopping"></i>
                     {cartItemsCount ? (
                       <span className="badge bg-danger">{cartItemsCount}</span>
@@ -90,7 +105,7 @@ const Navbar = () => {
                       </button>
                       <button
                         className="btn btn-secondary"
-                        onClick={handleLogout}
+                        onClick={handleLogoutClick}
                       >
                         Logout
                       </button>
