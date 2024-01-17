@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PortfolioMenu from "./portfolioMenu";
 //import { CartContext } from "../contexts/cartContext";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, updateQuantity } from "../redux/cartSlice";
+import { toggleCart, addToCart, updateQuantity } from "../redux/cartSlice";
 import axios from "axios";
 
 const SinglePortfolio = ({ id, imageSrc, title, description, price }) => {
@@ -12,7 +12,7 @@ const SinglePortfolio = ({ id, imageSrc, title, description, price }) => {
 
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart.cartItems);
-  const isInCart = cartItems[id] !== undefined;
+  const isInCart = cartItems && cartItems[id] !== undefined ? true : false;
 
   const handleAddToCartClick = () => {
     const item = { id, imageSrc, title, description, price, quantity: 1 };
@@ -79,8 +79,8 @@ const Portfolio = ({ showAll }) => {
 
   // const { handleAddToCart, cartItems, handleUpdateQuantity } =
   //   React.useContext(CartContext);
-  // const dispatch = useDispatch();
-  // const { cartItems } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
   useEffect(() => {
     fetchPortfolioData();
   }, [itemsPerPage, currentPage, filterData]);
