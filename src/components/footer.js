@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <footer>
-      <div className="bg-light fixed pt-2 d-flex flex-wrap align-items-center justify-content-between">
+      <div className="bg-light fixed-bottom b-0 pt-2 d-flex flex-wrap align-items-center justify-content-between">
         <p>Copyright © 2023 James Anderson</p>
         <ul className="social-icons d-flex list-unstyled">
           <li>

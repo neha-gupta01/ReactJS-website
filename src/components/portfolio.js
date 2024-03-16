@@ -1,33 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PortfolioMenu from "./portfolioMenu";
-//import { CartContext } from "../contexts/cartContext";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleCart, addToCart, updateQuantity } from "../redux/cartSlice";
+import { CartContext } from "../contexts/cartContext";
+// import { useDispatch, useSelector } from "react-redux";
+// import { toggleCart, addToCart, updateQuantity } from "../redux/cartSlice";
 import axios from "axios";
 
-const SinglePortfolio = ({ id, imageSrc, title, description, price }) => {
-  // const { cartItems, handleUpdateQuantity, handleAddToCart } =
-  //   React.useContext(CartContext);
+const SinglePortfolio = ({
+  id,
+  imageSrc,
+  title,
+  description,
+  price,
+  onAddToCart,
+}) => {
+  const { cartItems, handleUpdateQuantity, handleAddToCart } =
+    React.useContext(CartContext);
 
-  const dispatch = useDispatch();
-  const { cartItems } = useSelector((state) => state.cart.cartItems);
+  // const dispatch = useDispatch();
+  // const { cartItems } = useSelector((state) => state.cart.cartItems);
   const isInCart = cartItems && cartItems[id] !== undefined ? true : false;
 
   const handleAddToCartClick = () => {
     const item = { id, imageSrc, title, description, price, quantity: 1 };
-    dispatch(addToCart({ item }));
+    // dispatch(addToCart({ item }));
+    onAddToCart(item);
+    console.log(onAddToCart);
   };
 
-  const handleUpdateQuantity = (id, newQuantity) => {
-    dispatch(updateQuantity({ id, newQuantity }));
-  };
+  // const handleUpdateQuantity = (id, newQuantity) => {
+  //   dispatch(updateQuantity({ id, newQuantity }));
+  // };
   return (
-    <div className="col-lg-3 px-md-4 px-0 col-md-3 col-sm-4 card-wrapper">
-      <div className="card mt-4">
+    <div className="col-lg-3 col-md-4 col-sm-6 card-wrapper">
+      <div className="card mt-4 shadow-sm ">
         <img src={imageSrc} className="img-fluid" alt="portfolio-img" />
         <div className="card-body text-center">
-          <h6 className="card-title">{title}</h6>
+          <h6 className="card-title mb-2">{title}</h6>
           <p className="card-text text-secondary">{description}</p>
           <p className="fst-italic fw-bold">${price}</p>
           {isInCart ? (
@@ -77,10 +86,10 @@ const Portfolio = ({ showAll }) => {
     sortBy: "",
   });
 
-  // const { handleAddToCart, cartItems, handleUpdateQuantity } =
-  //   React.useContext(CartContext);
-  const dispatch = useDispatch();
-  const { cartItems } = useSelector((state) => state.cart);
+  const { handleAddToCart, cartItems, handleUpdateQuantity } =
+    React.useContext(CartContext);
+  // const dispatch = useDispatch();
+  // const { cartItems } = useSelector((state) => state.cart);
   useEffect(() => {
     fetchPortfolioData();
   }, [itemsPerPage, currentPage, filterData]);
@@ -221,6 +230,7 @@ const Portfolio = ({ showAll }) => {
                     title={item.title}
                     description={item.description}
                     price={item.price}
+                    onAddToCart={handleAddToCart}
                   />
                 ))
               ) : (
@@ -239,9 +249,9 @@ const Portfolio = ({ showAll }) => {
               </Link>
             </div>
           ) : null}
-          {showAll && (
-            <div className="row mt-3 mb-5">
-              <div className="d-flex align-items-center justify-content-end">
+          {/* {showAll &&  portfolioList.length ? (
+            <div className=" mt-3 mb-5 px-0 px-md-3 ">
+              <div className="col-6 d-flex align-items-center justify-content-end ">
                 <label className="me-2">Items:</label>
                 <select
                   className="form-select me-2"
@@ -284,7 +294,55 @@ const Portfolio = ({ showAll }) => {
                 <span className="ms-2"> {totalPages} pages</span>
               </div>
             </div>
-          )}
+          ): null} */}
+          {showAll && portfolioList.length ? (
+  <div className="mt-3 mb-5 px-0 px-md-3">
+    <div className="row">
+      <div className="col-12 col-lg-8"></div>
+      <div className="col-12 col-lg-4 d-flex justify-content-lg-end justify-content-center align-items-center">
+        <div className="d-flex align-items-center w-100 justify-content-lg-end justify-content-center">
+          <label className="me-2">Items:</label>
+          <select
+            className="form-select me-2"
+            style={{ width: "80px" }}
+            value={itemsPerPage}
+            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+          >
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="12">12</option>
+            <option value="16">16</option>
+          </select>
+          <nav aria-label="Page navigation" className="d-flex align-items-center">
+            <ul className="pagination mb-0">
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Prev
+                </button>
+              </li>
+              {getPaginationSequence()}
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+          <span className="ms-2 d-none d-lg-block"> {totalPages} pages</span>
+        </div>
+      </div>
+    </div>
+  </div>
+) : null}
+
         </div>
       </div>
     </section>

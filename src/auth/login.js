@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState , useContext } from "react";
 import axios from "axios";
-//import { UserContext } from "../contexts/userContext";
-import { useDispatch } from "react-redux";
-import { handleSuccessfulLogin } from "../redux/userSlice";
+import { UserContext } from "../contexts/userContext";
+// import { useDispatch } from "react-redux";
+// import { handleSuccessfulLogin } from "../redux/userSlice";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const { userData, handleSuccessfulLogin, isLoggedIn } =
-  //   useContext(UserContext);
-  const dispatch = useDispatch();
+  const { userData, handleSuccessfulLogin, isLoggedIn } =
+    useContext(UserContext);
+  // const dispatch = useDispatch();
 
   const handleLogin = () => {
     if (!email || !password) {
@@ -24,7 +24,9 @@ const Login = () => {
       .then((response) => {
         alert(response.data.result);
 
-        dispatch(handleSuccessfulLogin(response.data.result.data));
+        // dispatch(handleSuccessfulLogin(response.data.result.data));
+
+        handleSuccessfulLogin(response.data.result.data);
 
         console.log("Login Details:", response.data);
 
